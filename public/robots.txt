@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.google.com/search?q=https://salesopsconsulting.cl/sitemap.xml
+Sitemap: https://www.google.com/url?sa=E&source=gmail&q=https://salesopsconsulting.cl/sitemap.xml
