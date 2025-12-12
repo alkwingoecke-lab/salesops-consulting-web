@@ -15,27 +15,35 @@ const App = () => {
   });
   const [formStatus, setFormStatus] = useState('idle');
 
-  // --- SEO OPTIMIZATION ---
+ // --- SEO OPTIMIZATION FINAL (V3) ---
   useEffect(() => {
-    document.title = "SalesOps Consulting | Optimización CRM & Ventas B2B, B2C y B2G";
+    // Título: Promesa fuerte (Orden) + Nicho (HubSpot/Auditoría)
+    document.title = "SalesOps Consulting | Auditoría y Rentabilidad Comercial con HubSpot";
     
-    // Meta Description
+    // Meta Description: Enfocada en transformar "esfuerzo" en "rentabilidad"
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement('meta');
       metaDesc.name = "description";
       document.head.appendChild(metaDesc);
     }
-    metaDesc.setAttribute('content', 'Transformamos equipos comerciales con SalesOps, Playbooks y Automatización. Consultoría estratégica para empresas B2B, B2C y B2G que buscan crecimiento predecible.');
+    metaDesc.setAttribute('content', 'Maximizamos la rentabilidad de tu equipo de ventas. Consultoría SalesOps y HubSpot para PyMEs que buscan eficiencia operativa y procesos escalables.');
 
-    // Keywords
+    // Keywords:
+    // 1. Consultoría HubSpot Chile (Tu gancho técnico)
+    // 2. Rentabilidad Comercial Pymes (EL NUEVO TAG: Ataca el resultado financiero)
+    // 3. Auditoría de Procesos de Venta (El diagnóstico)
+    // 4. SalesOps (Tu metodología)
+    // 5. Gerencia de Ventas Externa (Tu servicio recurrente)
+    // 6. Automatización de Ventas (Eficiencia)
     let metaKeys = document.querySelector('meta[name="keywords"]');
     if (!metaKeys) {
         metaKeys = document.createElement('meta');
         metaKeys.name = "keywords";
         document.head.appendChild(metaKeys);
     }
-    metaKeys.setAttribute('content', 'Optimización de CRM, Ingeniería de Ventas, SalesOps, Automatización Comercial, Sales Playbooks, Ventas B2B, Ventas B2C, Licitaciones B2G');
+    
+    metaKeys.setAttribute('content', 'Consultoría HubSpot Chile, Rentabilidad Comercial Pymes, Auditoría de Procesos de Venta, SalesOps, Gerencia de Ventas Externa, Automatización de Ventas, Gestión del Pipeline, CRM Chile');
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -56,34 +64,51 @@ const App = () => {
     e.preventDefault();
     setFormStatus('submitting');
 
-    // *** PON TUS DATOS DE HUBSPOT AQUÍ ***
-    const PORTAL_ID = '50757292'; 
-    const FORM_GUID = '33261988-2be8-448e-854d-43e75bc23d3b'; 
+    // TUS CREDENCIALES REALES
+    const PORTAL_ID = '50757292';
+    const FORM_GUID = '33261988-2be8-448e-854d-43e75bc23d3b';
 
     const hubspotUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`;
 
+    // Estructura de datos requerida por la API de HubSpot
     const requestBody = {
+      submittedAt: Date.now(),
       fields: [
         { name: 'firstname', value: formData.firstname },
         { name: 'email', value: formData.email },
         { name: 'company', value: formData.company },
         { name: 'message', value: formData.message } 
+        // NOTA: Asegúrate que en tu formulario de HubSpot el campo de "mensaje" 
+        // tenga el nombre interno 'message'. Si es un campo personalizado, 
+        // podría ser algo como 'desafio_principal'.
       ],
       context: {
         pageUri: window.location.href,
-        pageName: 'SalesOps Consulting Web'
+        pageName: 'SalesOps Consulting Web - Contacto'
       }
     };
 
     try {
-      // Simulación de envío (borrar esto al activar el fetch real)
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-      
-      setFormStatus('success');
-      setFormData({ firstname: '', email: '', company: '', message: 'Equipo desordenado / Sin proceso' });
+      const response = await fetch(hubspotUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      // HubSpot devuelve 200 OK si todo sale bien
+      if (response.ok) {
+        setFormStatus('success');
+        setFormData({ firstname: '', email: '', company: '', message: 'Equipo desordenado / Sin proceso' });
+      } else {
+        // Si HubSpot rechaza el envío (ej. validación de email fallida)
+        console.error('Error HubSpot:', await response.text());
+        setFormStatus('error');
+      }
       
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error de red:', error);
       setFormStatus('error');
     }
   };
