@@ -57,8 +57,8 @@ const App = () => {
     setFormStatus('submitting');
 
     // *** PON TUS DATOS DE HUBSPOT AQUÍ ***
-    const PORTAL_ID = 'TU_PORTAL_ID'; 
-    const FORM_GUID = 'TU_FORM_GUID'; 
+    const PORTAL_ID = '50757292'; 
+    const FORM_GUID = '33261988-2be8-448e-854d-43e75bc23d3b'; 
 
     const hubspotUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`;
 
