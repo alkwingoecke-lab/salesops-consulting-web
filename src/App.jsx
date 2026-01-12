@@ -8,11 +8,13 @@ const App = () => {
 
   // Estados del Formulario de Contacto
   const [formData, setFormData] = useState({
-    firstname: '',
-    email: '',
-    company: '',
-    message: 'Equipo desordenado / Sin proceso'
-  });
+  firstname: '',
+  lastname: '', // <--- Que no falte esto
+  email: '',
+  phone: '',    // <--- Ni esto
+  company: '',
+  message: 'Equipo desordenado / Sin proceso'
+});
   const [formStatus, setFormStatus] = useState('idle');
 
  // --- SEO OPTIMIZATION FINAL (V3) ---
@@ -74,10 +76,13 @@ const App = () => {
     const requestBody = {
       submittedAt: Date.now(),
       fields: [
-        { name: 'firstname', value: formData.firstname },
-        { name: 'email', value: formData.email },
-        { name: 'company', value: formData.company },
-        { name: 'message', value: formData.message } 
+  { name: 'firstname', value: formData.firstname },
+  { name: 'lastname', value: formData.lastname }, // <--- AGREGAR ESTO
+  { name: 'email', value: formData.email },
+  { name: 'phone', value: formData.phone },       // <--- AGREGAR ESTO
+  { name: 'company', value: formData.company },
+  { name: 'message', value: formData.message }
+],
         // NOTA: Asegúrate que en tu formulario de HubSpot el campo de "mensaje" 
         // tenga el nombre interno 'message'. Si es un campo personalizado, 
         // podría ser algo como 'desafio_principal'.
@@ -673,6 +678,30 @@ const App = () => {
                             placeholder="Tu nombre" 
                           />
                       </div>
+                    <div className="mb-4">
+              <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="lastname">Apellido</label>
+              <input 
+                type="text" 
+                id="lastname"
+                name="lastname" 
+                value={formData.lastname}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
+                placeholder="Tu apellido" 
+              />
+            </div>
+                    <div className="mb-4">
+              <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="phone">Teléfono</label>
+              <input 
+                type="tel" 
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
+                placeholder="+56 9 ..." 
+              />
+            </div>
                       <div>
                           <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="email">Correo Electrónico</label>
                           <input 
