@@ -73,19 +73,16 @@ const App = () => {
     const hubspotUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`;
 
     // Estructura de datos requerida por la API de HubSpot
+    // Estructura de datos requerida por la API de HubSpot
     const requestBody = {
       submittedAt: Date.now(),
       fields: [
-  { name: 'firstname', value: formData.firstname },
-  { name: 'lastname', value: formData.lastname }, // <--- AGREGAR ESTO
-  { name: 'email', value: formData.email },
-  { name: 'phone', value: formData.phone },       // <--- AGREGAR ESTO
-  { name: 'company', value: formData.company },
-  { name: 'message', value: formData.message }
-],
-        // NOTA: Asegúrate que en tu formulario de HubSpot el campo de "mensaje" 
-        // tenga el nombre interno 'message'. Si es un campo personalizado, 
-        // podría ser algo como 'desafio_principal'.
+        { name: 'firstname', value: formData.firstname },
+        { name: 'lastname', value: formData.lastname },
+        { name: 'email', value: formData.email },
+        { name: 'phone', value: formData.phone },
+        { name: 'company', value: formData.company },
+        { name: 'message', value: formData.message }
       ],
       context: {
         pageUri: window.location.href,
