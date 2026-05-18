@@ -1,804 +1,515 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, CheckCircle, BarChart2, BookOpen, Users, ArrowRight, ChevronRight, Mail, Linkedin, Phone, Target, Award, AlertCircle, AlertTriangle, Globe, Rocket, Briefcase, Facebook, Instagram, Home, Send, Loader, Settings } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
 
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
+const _f = (() => {
+  const l = document.createElement("link");
+  l.href = "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap";
+  l.rel = "stylesheet";
+  document.head.appendChild(l);
+})();
+const F = { d: "'Instrument Serif', Georgia, serif", b: "'Outfit', system-ui, sans-serif" };
 
-  // Estados del Formulario de Contacto
-  const [formData, setFormData] = useState({
-  firstname: '',
-  lastname: '', // <--- Que no falte esto
-  email: '',
-  phone: '',    // <--- Ni esto
-  company: '',
-  message: 'Equipo desordenado / Sin proceso'
-});
-  const [formStatus, setFormStatus] = useState('idle');
+/* ── Light Theme Brand Colors ── */
+const C = {
+  bg: "#ffffff", bg2: "#f8fafc", bg3: "#f1f5f9",
+  card: "#f8fafc", cardHover: "#f1f5f9",
+  border: "#e2e8f0", borderDark: "#cbd5e1",
+  blue: "#2d3f8f", blueLight: "#4361c2", blueBright: "#3b5bdb",
+  blueSoft: "rgba(45,63,143,0.06)", blueGlow: "rgba(45,63,143,0.15)",
+  navy: "#0c1121",
+  red: "#dc3545", redSoft: "rgba(220,53,69,0.05)", redBorder: "rgba(220,53,69,0.12)",
+  amber: "#b8860b", amberSoft: "rgba(184,134,11,0.06)",
+  green: "#017737", greenSoft: "rgba(1,119,55,0.05)", greenBorder: "rgba(1,119,55,0.12)",
+  w: "#0f172a",     /* primary text - dark */
+  g: "#475569",     /* secondary text */
+  m: "#94a3b8",     /* muted text */
+  d: "#cbd5e1",     /* very muted */
+};
 
- // --- SEO OPTIMIZATION FINAL (V3) ---
+/* ── Hooks ── */
+function useVis(th = 0.12) {
+  const ref = useRef(null);
+  const [v, setV] = useState(false);
   useEffect(() => {
-    // Título: Promesa fuerte (Orden) + Nicho (HubSpot/Auditoría)
-    document.title = "SalesOps Consulting | Auditoría y Rentabilidad Comercial con HubSpot";
-    
-    // Meta Description: Enfocada en transformar "esfuerzo" en "rentabilidad"
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.name = "description";
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute('content', 'Maximizamos la rentabilidad de tu equipo de ventas. Consultoría SalesOps y HubSpot para PyMEs que buscan eficiencia operativa y procesos escalables.');
+    const el = ref.current; if (!el) return;
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: th });
+    o.observe(el); return () => o.disconnect();
+  }, []); return [ref, v];
+}
+function FI({ children, delay = 0, style = {} }) {
+  const [r, v] = useVis();
+  return <div ref={r} style={{ opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(18px)", transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`, ...style }}>{children}</div>;
+}
 
-    // Keywords:
-    // 1. Consultoría HubSpot Chile (Tu gancho técnico)
-    // 2. Rentabilidad Comercial Pymes (EL NUEVO TAG: Ataca el resultado financiero)
-    // 3. Auditoría de Procesos de Venta (El diagnóstico)
-    // 4. SalesOps (Tu metodología)
-    // 5. Gerencia de Ventas Externa (Tu servicio recurrente)
-    // 6. Automatización de Ventas (Eficiencia)
-    let metaKeys = document.querySelector('meta[name="keywords"]');
-    if (!metaKeys) {
-        metaKeys = document.createElement('meta');
-        metaKeys.name = "keywords";
-        document.head.appendChild(metaKeys);
-    }
-    
-    metaKeys.setAttribute('content', 'Consultoría HubSpot Chile, Rentabilidad Comercial Pymes, Auditoría de Procesos de Venta, SalesOps, Gerencia de Ventas Externa, Automatización de Ventas, Gestión del Pipeline, CRM Chile');
+/* ── Logo (dark version for light bg) ── */
+function Logo({ size = 28 }) {
+  return (
+    <svg width={size * 1.3} height={size} viewBox="0 0 52 40" fill="none">
+      <path d="M8 2 L48 2 L44 12 L4 12 Z" fill={C.navy} />
+      <path d="M6 16 L46 16 L42 26 L2 26 Z" fill={C.navy} />
+      <path d="M4 30 L44 30 L40 40 L0 40 Z" fill={C.blue} />
+    </svg>
+  );
+}
 
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+function Tag({ children, color = C.blue, bg = C.blueSoft }) {
+  return <span style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color, background: bg, padding: "5px 14px", borderRadius: 4, display: "inline-block" }}>{children}</span>;
+}
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+/* ── Social Links ── */
+function SocialLinks({ size = 18, gap = 16, color = C.m }) {
+  return (
+    <div style={{ display: "flex", gap, alignItems: "center" }}>
+      <a href="https://www.linkedin.com/company/salesops-consulting" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ color, transition: "color 0.2s" }}
+        onMouseEnter={e => e.currentTarget.style.color = C.blue} onMouseLeave={e => e.currentTarget.style.color = color}>
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/salesopsconsulting/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={{ color, transition: "color 0.2s" }}
+        onMouseEnter={e => e.currentTarget.style.color = C.blue} onMouseLeave={e => e.currentTarget.style.color = color}>
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61589963015210&sk=about" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style={{ color, transition: "color 0.2s" }}
+        onMouseEnter={e => e.currentTarget.style.color = C.blue} onMouseLeave={e => e.currentTarget.style.color = color}>
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+    </div>
+  );
+}
 
-  // --- INTEGRACIÓN HUBSPOT ---
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+/* ── Nav ── */
+function Nav() {
+  const [s, setS] = useState(false);
+  useEffect(() => { const h = () => setS(window.scrollY > 50); window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []);
+  const links = [["El problema", "#problema"], ["Nuestro método", "#metodo"], ["Autoevaluación", "#eval"], ["A quién ayudamos", "#quien"], ["Hablemos", "#contacto"]];
+  return (
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: s ? "rgba(255,255,255,0.95)" : "transparent", backdropFilter: s ? "blur(16px)" : "none", borderBottom: `1px solid ${s ? C.border : "transparent"}`, transition: "all 0.35s" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto", padding: "14px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <Logo size={22} />
+          <span style={{ fontFamily: F.b, fontWeight: 800, fontSize: 15, color: C.w, letterSpacing: "0.04em" }}>SALESOPS</span>
+          <span style={{ fontFamily: F.b, fontWeight: 300, fontSize: 11, color: C.m, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
+        </a>
+        <div className="nav-links" style={{ display: "flex", gap: 26, alignItems: "center" }}>
+          {links.map(([l, h]) => <a key={h} href={h} style={{ fontFamily: F.b, fontSize: 13, color: C.g, textDecoration: "none" }}>{l}</a>)}
+          <a href="#contacto" style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: "#fff", background: C.blue, padding: "9px 22px", borderRadius: 6, textDecoration: "none" }}>Conversemos</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus('submitting');
+/* ── Hero ── */
+function Hero() {
+  return (
+    <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "120px 24px 80px", position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(45,63,143,0.04) 0%, transparent 60%)", pointerEvents: "none" }} />
+      <div style={{ textAlign: "center", maxWidth: 740, position: "relative", zIndex: 1 }}>
+        <FI><div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}><Logo size={38} /></div></FI>
+        <FI delay={0.1}>
+          <h1 style={{ fontFamily: F.d, fontSize: "clamp(40px,6vw,64px)", fontWeight: 400, color: C.w, lineHeight: 1.08, margin: "0 0 28px" }}>
+            De instinto comercial<br /><em style={{ color: C.blue }}>a sistema predecible.</em>
+          </h1>
+        </FI>
+        <FI delay={0.2}>
+          <p style={{ fontFamily: F.b, fontSize: 18, color: C.g, lineHeight: 1.7, margin: "0 auto 44px", fontWeight: 300, maxWidth: 580 }}>
+            Consultoría de ventas para empresas B2B que necesitan dejar de depender del dueño para cerrar negocios. Te ayudamos a sistematizar tus ventas para que tu equipo opere con orden, claridad y resultados que puedas anticipar.
+          </p>
+        </FI>
+        <FI delay={0.3}>
+          <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+            <a href="#eval" style={{ fontFamily: F.b, fontSize: 14, fontWeight: 600, color: "#fff", background: C.blue, padding: "15px 36px", borderRadius: 8, textDecoration: "none", boxShadow: `0 4px 24px ${C.blueGlow}` }}>Evalúa gratis tu área comercial</a>
+            <a href="#metodo" style={{ fontFamily: F.b, fontSize: 14, fontWeight: 400, color: C.g, border: `1px solid ${C.border}`, padding: "15px 36px", borderRadius: 8, textDecoration: "none" }}>Conocer el método</a>
+          </div>
+        </FI>
+        <FI delay={0.4}>
+          <p style={{ fontFamily: F.b, fontSize: 11, color: C.m, marginTop: 52, letterSpacing: "0.1em", fontWeight: 500 }}>ASESORÍA EN GESTIÓN COMERCIAL · CHILE Y LATINOAMÉRICA</p>
+        </FI>
+      </div>
+    </section>
+  );
+}
 
-    // TUS CREDENCIALES REALES
-    const PORTAL_ID = '50757292';
-    const FORM_GUID = '33261988-2be8-448e-854d-43e75bc23d3b';
-
-    const hubspotUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`;
-
-    // Estructura de datos requerida por la API de HubSpot
-    // Estructura de datos requerida por la API de HubSpot
-    const requestBody = {
-      submittedAt: Date.now(),
-      fields: [
-        { name: 'firstname', value: formData.firstname },
-        { name: 'lastname', value: formData.lastname },
-        { name: 'email', value: formData.email },
-        { name: 'phone', value: formData.phone },
-        { name: 'company', value: formData.company },
-        { name: 'message', value: formData.message }
-      ],
-      context: {
-        pageUri: window.location.href,
-        pageName: 'SalesOps Consulting Web - Contacto'
-      }
-    };
-
-    try {
-      const response = await fetch(hubspotUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-      // HubSpot devuelve 200 OK si todo sale bien
-      if (response.ok) {
-        setFormStatus('success');
-        setFormData({ firstname: '', email: '', company: '', message: 'Equipo desordenado / Sin proceso' });
-      } else {
-        // Si HubSpot rechaza el envío (ej. validación de email fallida)
-        console.error('Error HubSpot:', await response.text());
-        setFormStatus('error');
-      }
-      
-    } catch (error) {
-      console.error('Error de red:', error);
-      setFormStatus('error');
-    }
-  };
-
-  // --- LÓGICA DE EVALUACIÓN ---
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-
-  const questions = [
-    {
-      question: "¿Qué CRM utiliza tu equipo actualmente?",
-      options: [
-        { text: "Excel, hojas de cálculo o cuadernos.", points: 0 },
-        { text: "Salesforce, Pipedrive, Zoho u otro CRM (No HubSpot).", points: 5 },
-        { text: "HubSpot CRM.", points: 10 }
-      ]
-    },
-    {
-      question: "¿Sientes que tu proyección de venta (Forecast) no está alineada a tus resultados reales a fin de mes?",
-      options: [
-        { text: "Totalmente desalineada. Es una apuesta y solemos fallar por mucho.", points: 0 },
-        { text: "A veces acertamos, pero requiere mucho trabajo manual limpiar la data.", points: 5 },
-        { text: "No, mi proyección es precisa, automática y se cumple.", points: 10 }
-      ]
-    },
-    {
-      question: "Si contratas a un vendedor nuevo mañana, ¿cuánto tarda en ser productivo?",
-      options: [
-        { text: "3 a 6 meses. Aprende 'mirando' a los más antiguos (osmosis).", points: 0 },
-        { text: "Le damos una capacitación básica del producto, pero depende mucho de su talento individual.", points: 5 },
-        { text: "Menos de 1 mes. Tenemos un Playbook y un programa de Onboarding estructurado.", points: 10 }
-      ]
-    },
-    {
-      question: "¿Qué pasa con los leads (prospectos) que NO compran de inmediato?",
-      options: [
-        { text: "Quedan en el olvido ('Cementerio de Leads') o en un Excel perdido.", points: 0 },
-        { text: "El vendedor intenta llamar un par de veces y si no contestan, los marca como cerrados.", points: 5 },
-        { text: "Entran automáticamente a una secuencia de nutrición (Nurturing) a largo plazo para reactivarlos.", points: 10 }
-      ]
-    }
+/* ── Problema ── */
+function Problema() {
+  const pains = [
+    { q: "No sé cuánto vamos a cerrar este mes hasta el día 25.", s: "Proyecciones basadas en intuición, no en información real." },
+    { q: "Mis vendedores pierden la mitad del día en tareas que no son vender.", s: "Sin un sistema claro, la administración consume al equipo." },
+    { q: "Si se va mi mejor vendedor, se lleva la cartera con él.", s: "Cuando el conocimiento vive en las personas y no en el sistema, todo es frágil." },
+    { q: "Yo sigo siendo el que cierra los negocios importantes.", s: "El dueño atrapado en la operación diaria de ventas." },
   ];
+  return (
+    <section id="problema" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><Tag color={C.red} bg={C.redSoft}>El problema</Tag></FI>
+      <FI delay={0.08}>
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4.5vw,44px)", color: C.w, lineHeight: 1.12, margin: "18px 0 10px", fontWeight: 400 }}>
+          Tu empresa vende.<br /><span style={{ color: C.m }}>Pero no sabes cuánto va a vender mañana.</span>
+        </h2>
+      </FI>
+      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 300, lineHeight: 1.65 }}>
+        Estas son frases reales de dueños de empresas B2B. Si alguna te suena familiar, es probable que tu proceso de ventas necesite más que esfuerzo individual — necesite estructura.
+      </p></FI>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
+        {pains.map((p, i) => (
+          <FI key={i} delay={0.06 + i * 0.05}>
+            <div style={{ background: C.redSoft, border: `1px solid ${C.redBorder}`, borderRadius: 10, padding: "24px 22px", height: "100%" }}>
+              <p style={{ fontFamily: F.d, fontSize: 17, color: C.w, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 10px" }}>"{p.q}"</p>
+              <p style={{ fontFamily: F.b, fontSize: 12, color: C.g, margin: 0 }}>{p.s}</p>
+            </div>
+          </FI>
+        ))}
+      </div>
+      <FI delay={0.35}>
+        <div style={{ marginTop: 32, padding: "20px 24px", borderRadius: 10, background: C.bg2, border: `1px solid ${C.border}` }}>
+          <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, margin: 0, lineHeight: 1.65 }}>
+            <strong style={{ color: C.w }}>La respuesta instintiva del dueño: </strong>
+            contratar un gerente de ventas. Pero el costo es alto, el proceso de selección es largo, y la probabilidad de que no funcione es cercana al 50%.
+            <strong style={{ color: C.w }}> Hay un camino intermedio antes de dar ese salto.</strong>
+          </p>
+        </div>
+      </FI>
+    </section>
+  );
+}
 
-  const handleAnswer = (points) => {
-    const newScore = score + points;
-    setScore(newScore);
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowResult(true);
-    }
-  };
+/* ── Valor ── */
+function Valor() {
+  const L = ["No sé cuánto vamos a cerrar este mes.", "Los vendedores pierden medio día en tareas administrativas.", "Si se va alguien clave, el negocio sufre.", "Yo sigo cerrando los negocios importantes."];
+  const R = ["La proyección del trimestre tiene menos de 15% de desviación.", "Cada vendedor recuperó 8 horas semanales para dedicar a vender.", "Un vendedor nuevo opera al 80% en un mes, gracias al sistema documentado.", "Mi equipo cierra negocios sin que yo esté presente."];
+  return (
+    <section style={{ padding: "80px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><div style={{ textAlign: "center", marginBottom: 44 }}>
+        <Tag>El cambio concreto</Tag>
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4vw,40px)", color: C.w, lineHeight: 1.12, margin: "18px 0 8px", fontWeight: 400 }}>
+          La diferencia entre depender de personas<br /><em style={{ color: C.blue }}>y confiar en un sistema.</em>
+        </h2>
+      </div></FI>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+        <FI delay={0.1}><div>
+          <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 14 }}>Sin sistema</p>
+          {L.map((t, i) => <div key={i} style={{ padding: "14px 18px", borderRadius: 8, marginBottom: 8, background: C.redSoft, borderLeft: "3px solid rgba(220,53,69,0.25)" }}><p style={{ fontFamily: F.b, fontSize: 14, color: C.g, margin: 0, lineHeight: 1.5, fontWeight: 300 }}>"{t}"</p></div>)}
+        </div></FI>
+        <FI delay={0.2}><div>
+          <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.blue, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 14 }}>Con sistema</p>
+          {R.map((t, i) => <div key={i} style={{ padding: "14px 18px", borderRadius: 8, marginBottom: 8, background: C.blueSoft, borderLeft: "3px solid rgba(45,63,143,0.25)" }}><p style={{ fontFamily: F.b, fontSize: 14, color: C.w, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>"{t}"</p></div>)}
+        </div></FI>
+      </div>
+    </section>
+  );
+}
 
-  const resetAssessment = () => {
-    setIsAssessmentOpen(false);
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowResult(false);
-  };
-
-  const getResultFeedback = () => {
-    if (score <= 15) return {
-      title: "Alerta Roja: Fugas de Dinero",
-      description: "Tu operación depende peligrosamente de la suerte y del talento individual. Estás perdiendo leads por falta de seguimiento y tus vendedores nuevos tardan demasiado en rentabilizar.",
-      recommendation: "Recomendamos: Diagnóstico Comercial 360° urgente."
-    };
-    if (score <= 25) return {
-      title: "Nivel Intermedio: Crecimiento con Dolor",
-      description: "Tienes las herramientas, pero falta disciplina operativa. Probablemente tus datos están sucios y tu equipo pierde tiempo en tareas que deberían ser automáticas.",
-      recommendation: "Recomendamos: Sales Playbooks & Tech para estandarizar."
-    };
-    return {
-      title: "Nivel Avanzado: Máquina de Ventas",
-      description: "¡Excelente! Tienes procesos maduros. El siguiente nivel es afinar la estrategia con datos avanzados y coaching de alto rendimiento para romper el techo de cristal.",
-      recommendation: "Recomendamos: Fractional Sales Manager para mejora continua."
-    };
-  };
-
-  const services = [
-    {
-      title: "Diagnóstico Comercial 360°",
-      subtitle: "Personas, Procesos y Tecnología",
-      icon: <Target className="w-8 h-8 text-cyan-400" />,
-      description: "No solo auditamos tu HubSpot, perfilamos a tu fuerza de ventas. Recomendamos las técnicas y metodologías específicas que mejor se amoldan a sus perfiles y objetivos.",
-      price: "Inversión Única: 30 UF",
-      features: ["Mystery Shopper & Escucha de Llamadas", "Auditoría Técnica HubSpot", "Evaluación de Perfiles de Venta", "Selección de Técnicas de Venta Ad hoc"],
-      highlight: true
-    },
-    {
-      title: "Sales Playbooks & Tech",
-      subtitle: "Estandarización del Éxito",
-      icon: <BookOpen className="w-8 h-8 text-cyan-400" />,
-      description: "Creamos el 'Manual de Venta' de tu empresa (guiones, objeciones) y lo dejamos automatizado en el CRM para que el equipo lo use.",
-      price: "Desde 50 UF",
-      features: ["Definición de Buyer Persona", "Guiones y Plantillas de Correo", "Configuración de Pipeline en CRM", "Capacitación y Onboarding"],
-      highlight: false
-    },
-    {
-      title: "Fractional Sales Manager",
-      subtitle: "Liderazgo & Coaching Mensual",
-      icon: <Users className="w-8 h-8 text-cyan-400" />,
-      description: "Tu equipo necesita dirección, no solo soporte. Nos convertimos en tu Gerente de Ventas externo para asegurar resultados mes a mes.",
-      price: "Planes desde 15 UF/mes",
-      features: ["Revisión de Pipeline con Vendedores", "Coaching 1 a 1 y Roleplay", "Control de Calidad de Llamadas", "Gestión de Metas y KPIs"],
-      highlight: false
-    },
-    {
-      title: "Implementación Técnica CRM",
-      subtitle: "Configuración & Migración",
-      icon: <Settings className="w-8 h-8 text-cyan-400" />,
-      description: "Te ayudamos a configurar tu CRM desde cero o a optimizar la instancia que ya tienes. Aseguramos que la tecnología trabaje para ti, no al revés.",
-      price: "Cotización a medida",
-      features: ["Configuración de Pipelines", "Automatización de Workflows", "Migración de Datos Segura", "Capacitación Técnica"],
-      highlight: false
-    }
+/* ── Método TAG ── */
+function Metodo() {
+  const ps = [
+    { l: "T", t: "Análisis", sub: "Diagnosticamos antes de operar", desc: "En una semana revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un puntaje de madurez de 0 a 100 y las cinco acciones prioritarias para tu caso específico.", foot: "Si no agregamos valor, devolvemos la mitad del costo. Sin explicaciones.", c: C.blue },
+    { l: "A", t: "Arquitectura", sub: "Construimos el sistema operativo de ventas", desc: "Ordenamos tu gestor de clientes para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y alineamos la compensación del equipo con los resultados del negocio.", foot: "Seis a ocho semanas. Herramienta central: Pipedrive.", c: "#6366f1" },
+    { l: "G", t: "Gobernanza", sub: "Lideramos la ejecución del día a día", desc: "Insertamos un gerente de ventas a tiempo parcial que lidera las reuniones del equipo, acompaña a cada vendedor individualmente y se asegura de que el sistema funcione. A un tercio del costo de una contratación directa.", foot: "Nuestra meta: que en 18-24 meses tu empresa ya no nos necesite.", c: C.amber },
   ];
+  return (
+    <section id="metodo" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><div style={{ textAlign: "center", marginBottom: 48 }}>
+        <Tag>Nuestro método</Tag>
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(32px,5vw,50px)", color: C.w, margin: "18px 0 6px", fontWeight: 400 }}>Método TAG</h2>
+        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 300 }}>Tres etapas consecutivas. Cada una prepara el terreno para la siguiente.</p>
+      </div></FI>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+        {ps.map((p, i) => (
+          <FI key={i} delay={0.06 + i * 0.07}>
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `3px solid ${p.c}`, borderRadius: 10, padding: "28px 22px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <span style={{ fontFamily: F.d, fontSize: 48, color: p.c, lineHeight: 1, opacity: 0.6 }}>{p.l}</span>
+              <h3 style={{ fontFamily: F.b, fontSize: 20, fontWeight: 700, color: C.w, margin: "8px 0 3px" }}>{p.t}</h3>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: p.c, margin: "0 0 14px", fontWeight: 500 }}>{p.sub}</p>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.65, margin: "0 0 14px", fontWeight: 300, flex: 1 }}>{p.desc}</p>
+              <p style={{ fontFamily: F.b, fontSize: 11, color: C.m, margin: 0, fontStyle: "italic", borderTop: `1px solid ${C.border}`, paddingTop: 12 }}>{p.foot}</p>
+            </div>
+          </FI>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Autoevaluación ── */
+const QS = [
+  { q: "¿Puedes anticipar con precisión cuánto va a cerrar tu equipo este mes?", a: ["Sí, con información actualizada del gestor de clientes", "Tengo una idea aproximada", "Recién lo sé cuando termina el mes", "No tengo forma de saberlo"] },
+  { q: "¿Tu equipo comercial sigue un proceso de venta documentado y compartido?", a: ["Sí, con guiones y pasos definidos", "Hay lineamientos generales pero no se siguen siempre", "Cada vendedor tiene su propio estilo", "No existe nada formal"] },
+  { q: "¿Cómo se usa el gestor de clientes (la herramienta donde registran oportunidades)?", a: ["Es nuestra herramienta central de decisión", "Existe pero los datos están incompletos", "Lo tienen pero casi nadie lo usa bien", "No tenemos o usamos planillas sueltas"] },
+  { q: "¿Qué porcentaje de tu tiempo como dueño se va en cerrar ventas personalmente?", a: ["Menos del 15%", "Entre 15% y 30%", "Entre 30% y 50%", "Más de la mitad de mi tiempo"] },
+  { q: "Si tu mejor vendedor se va mañana, ¿cuánto tarda su reemplazo en alcanzar buen rendimiento?", a: ["Menos de un mes (hay sistema documentado)", "Uno a tres meses", "Tres a seis meses", "No sé, nunca lo hemos medido"] },
+];
+
+function Eval() {
+  const [step, setStep] = useState(-1);
+  const [ans, setAns] = useState([]);
+  const [email, setEmail] = useState("");
+  const score = ans.reduce((s, a) => s + (3 - a) * 5, 0);
+  const mx = 75, pct = Math.round((score / mx) * 100);
+  const level = pct >= 75 ? "Maduro" : pct >= 55 ? "Funcional" : pct >= 35 ? "En desarrollo" : "Requiere atención urgente";
+  const lc = pct >= 75 ? "#16a34a" : pct >= 55 ? C.blue : pct >= 35 ? "#b8860b" : C.red;
+  const answer = (v) => { const na = [...ans, v]; setAns(na); na.length >= QS.length ? setStep(QS.length) : setStep(step + 1); };
 
   return (
-    <div className="font-sans text-slate-900 bg-slate-50 selection:bg-cyan-200">
-      
-      {/* NAVBAR */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900 shadow-lg py-3' : 'bg-slate-900/95 py-5'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          {/* LOGO: Engranaje + Barras + Flecha */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 relative flex items-center justify-center">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SalesOps Logo">
-                    <defs>
-                        <linearGradient id="gearGradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stopColor="#22D3EE" />
-                            <stop offset="100%" stopColor="#0F172A" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="#06B6D4" strokeWidth="3" fill="none" strokeDasharray="4 2"/>
-                    <path d="M24 8V4M44 24H40M24 44V40M4 24H8M38.1 38.1L35.3 35.3M9.9 9.9L12.7 12.7M38.1 9.9L35.3 12.7M9.9 38.1L12.7 35.3" stroke="#06B6D4" strokeWidth="3" strokeLinecap="round"/>
-                    <rect x="14" y="26" width="4" height="8" rx="1" fill="#22D3EE" />
-                    <rect x="22" y="20" width="4" height="14" rx="1" fill="#06B6D4" />
-                    <rect x="30" y="14" width="4" height="20" rx="1" fill="#1E3A8A" />
-                    <path d="M12 30L22 20L30 24L40 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M34 10H40V16" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-            </div>
-            <div className="text-white">
-              <span className="block font-bold text-xl leading-none tracking-tight">SalesOps</span>
-              <span className="block text-cyan-400 text-[10px] tracking-[0.2em] font-bold uppercase mt-0.5">Consulting</span>
-            </div>
-          </div>
-
-          {/* Menú Escritorio */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#inicio" className="text-slate-300 hover:text-cyan-400 transition-colors" aria-label="Volver al inicio">
-              <Home size={22} />
-            </a>
-            <a href="#quienes-somos" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">Quiénes Somos</a>
-            <a href="#problema" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">Desafíos</a>
-            <a href="#servicios" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">Soluciones</a>
-            <a href="#filosofia" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">Enfoque</a>
-            <button onClick={() => setIsAssessmentOpen(true)} className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-bold py-2 px-5 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/20 text-sm">
-              Auto-Evaluación
-            </button>
-          </div>
-
-          {/* Botón Menú Móvil */}
-          <div className="md:hidden">
-            <button onClick={toggleMenu} className="text-white focus:outline-none" aria-label="Abrir menú">
-              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Menú Móvil Desplegable */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-slate-800 absolute w-full border-t border-slate-700 shadow-xl">
-            <div className="flex flex-col px-6 py-4 space-y-4">
-              <a href="#inicio" onClick={toggleMenu} className="text-slate-300 hover:text-white flex items-center gap-2">
-                <Home size={20} /> Inicio
-              </a>
-              <a href="#quienes-somos" onClick={toggleMenu} className="text-slate-300 hover:text-white">Quiénes Somos</a>
-              <a href="#problema" onClick={toggleMenu} className="text-slate-300 hover:text-white">Desafíos</a>
-              <a href="#servicios" onClick={toggleMenu} className="text-slate-300 hover:text-white">Soluciones</a>
-              <a href="#filosofia" onClick={toggleMenu} className="text-slate-300 hover:text-white">Enfoque</a>
-              <button onClick={() => { setIsAssessmentOpen(true); toggleMenu(); }} className="text-cyan-400 font-bold text-left">
-                Hacer Auto-Evaluación
-              </button>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* MODAL DE AUTOEVALUACION */}
-      {isAssessmentOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-slate-900/90 backdrop-blur-sm transition-all" role="dialog" aria-modal="true">
-          <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden relative animate-fade-in-up">
-            <button onClick={resetAssessment} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600" aria-label="Cerrar">
-              <X size={24} />
-            </button>
-            
-            <div className="p-8">
-              {!showResult ? (
-                <>
-                  <div className="mb-6">
-                    <span className="text-xs font-bold text-cyan-600 uppercase tracking-wide">Diagnóstico Express</span>
-                    <h3 className="text-2xl font-bold text-slate-900 mt-2">Pregunta {currentQuestion + 1} de {questions.length}</h3>
-                    <div className="w-full bg-slate-100 h-2 rounded-full mt-4">
-                      <div className="bg-cyan-500 h-2 rounded-full transition-all duration-500" style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}></div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="text-lg font-medium text-slate-700 mb-6">{questions[currentQuestion].question}</h4>
-                  
-                  <div className="space-y-3">
-                    {questions[currentQuestion].options.map((option, idx) => (
-                      <button 
-                        key={idx} 
-                        onClick={() => handleAnswer(option.points)}
-                        className="w-full text-left p-4 rounded-xl border-2 border-slate-100 hover:border-cyan-500 hover:bg-cyan-50 transition-all duration-200 group"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-slate-600 group-hover:text-slate-900 font-medium">{option.text}</span>
-                          <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-cyan-500" />
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="text-center py-6">
-                  <div className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-6 ${score <= 15 ? 'bg-red-100 text-red-500' : score <= 25 ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}`}>
-                     {score <= 15 ? <AlertTriangle size={40} /> : <Award size={40} />}
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">{getResultFeedback().title}</h3>
-                  <p className="text-slate-600 mb-6">{getResultFeedback().description}</p>
-                  
-                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-8 inline-block w-full">
-                    <p className="font-bold text-slate-800 text-sm">{getResultFeedback().recommendation}</p>
-                  </div>
-
-                  <a href="#contacto" onClick={() => setIsAssessmentOpen(false)} className="block w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg">
-                    Agendar Revisión Gratuita
-                  </a>
-                  <button onClick={resetAssessment} className="mt-4 text-sm text-slate-500 hover:text-slate-800 underline">
-                    Volver a empezar
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* HERO SECTION */}
-      <header id="inicio" className="relative bg-slate-900 pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Fondo Abstracto */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-slate-800 to-slate-900 opacity-50 transform skew-x-12 translate-x-20"></div>
-        <div className="absolute top-20 right-20 w-64 h-64 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 text-xs font-bold uppercase tracking-wide mb-6">
-              <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
-              Consultoría, Estrategia & Habilitación Comercial
-            </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Tu Equipo de Ventas, <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Potenciado al Máximo</span>
-            </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-4xl leading-relaxed text-justify">
-              Combinamos metodología de Coaching, Playbooks estratégicos y la potencia de HubSpot para eliminar la improvisación de tu equipo. Transformamos el talento individual en un sistema replicable que permite a tus vendedores cerrar negocios de forma ordenada, predecible y totalmente escalable mes a mes.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button onClick={() => setIsAssessmentOpen(true)} className="inline-flex items-center justify-center bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-bold py-4 px-8 rounded-lg transition-all text-lg shadow-lg shadow-cyan-500/25">
-                Evaluar a mi Equipo
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </button>
-              <a href="#servicios" className="inline-flex items-center justify-center bg-transparent border border-slate-600 hover:border-slate-400 text-slate-300 font-semibold py-4 px-8 rounded-lg transition-all text-lg">
-                Ver Soluciones
-              </a>
-            </div>
-            <div className="mt-12 flex flex-wrap items-center gap-6 text-slate-400 text-sm">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-cyan-500" />
-                <span>Cultura de Alto Rendimiento</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-cyan-500" />
-                <span>Procesos Estandarizados</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-cyan-500" />
-                <span>Tecnología como Facilitador</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* QUIENES SOMOS */}
-      <section id="quienes-somos" className="py-20 bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full filter blur-[100px]"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full filter blur-[100px]"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 text-xs font-bold uppercase tracking-wide mb-6">
-                <Users className="w-4 h-4" />
-                Quiénes Somos
-              </div>
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
-                Arquitectos de <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Crecimiento Predecible</span>
-              </h2>
-              <p className="text-slate-300 text-lg leading-relaxed text-justify">
-                SalesOps Consulting nació de una frustración compartida: ver empresas con excelentes productos fracasar por procesos comerciales desordenados. No somos teóricos; somos líderes activos que construyen los rieles por donde viaja el éxito comercial.
+    <section id="eval" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><div style={{ textAlign: "center", marginBottom: 36 }}>
+        <Tag color={C.amber} bg={C.amberSoft}>Autoevaluación gratuita</Tag>
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4vw,40px)", color: C.w, margin: "18px 0 8px", fontWeight: 400 }}>¿Qué tan ordenada está tu operación comercial?</h2>
+        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 300 }}>Cinco preguntas. Dos minutos. Un primer diagnóstico de dónde estás.</p>
+      </div></FI>
+      <FI delay={0.1}>
+        <div style={{ maxWidth: 640, margin: "0 auto", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 14, padding: "34px 30px", minHeight: 300, boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+          {step === -1 && (
+            <div style={{ textAlign: "center" }}>
+              <p style={{ fontFamily: F.b, fontSize: 15, color: C.g, lineHeight: 1.7, marginBottom: 24 }}>
+                Esta evaluación te dará un puntaje preliminar de madurez comercial. No reemplaza un diagnóstico profesional, pero te ayudará a identificar dónde están las oportunidades más claras de mejora.
               </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <article className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 group">
-              <div className="w-14 h-14 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 transition-colors">
-                <Rocket className="w-8 h-8 text-cyan-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Nuestra Misión</h3>
-              <p className="text-slate-300 leading-relaxed text-lg text-justify">
-                Erradicar la improvisación en las ventas. Nuestra misión es transformar el caos operativo en máquinas de ingresos predecibles, empoderando a los equipos comerciales con la infraestructura, la tecnología y la estrategia de élite que necesitan para dominar sus mercados, ya sea en ventas corporativas (B2B), consumo masivo (B2C) o licitaciones públicas (B2G).
-              </p>
-            </article>
-
-            <article className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 group">
-              <div className="w-14 h-14 bg-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 transition-colors">
-                <Globe className="w-8 h-8 text-cyan-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Nuestra Visión</h3>
-              <p className="text-slate-300 leading-relaxed text-lg text-justify">
-                Ser el estándar de excelencia en Operaciones de Venta en Latinoamérica. Visualizamos un futuro donde ningún gran producto fracase por una mala ejecución comercial, y donde la ingeniería de ventas sea el corazón que impulsa la economía comercial de la región.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* SECCION PROBLEMA */}
-      <section id="problema" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+              <button onClick={() => setStep(0)} style={{ fontFamily: F.b, fontSize: 14, fontWeight: 600, color: "#fff", background: C.blue, padding: "14px 36px", borderRadius: 8, border: "none", cursor: "pointer" }}>Comenzar evaluación</button>
+            </div>
+          )}
+          {step >= 0 && step < QS.length && (
             <div>
-              <span className="text-cyan-600 font-bold text-sm tracking-wider uppercase mb-2 block">Realidad Actual</span>
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">
-                ¿Tu equipo improvisa en lugar de ejecutar?
-              </h2>
-              
-              <div className="space-y-6">
-                {[
-                  "Cada vendedor vende a su manera, sin un guión o proceso claro.",
-                  "El talento se desperdicia en tareas administrativas y limpieza de datos.",
-                  "HubSpot es visto como una carga burocrática, no como una ayuda.",
-                  "El seguimiento a los leads es inconsistente y dependiente de la memoria."
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-cyan-100 transition-colors">
-                    <div className="min-w-[24px] mt-1 bg-white rounded-full p-1 shadow-sm">
-                       <AlertCircle className="w-5 h-5 text-red-500" />
-                    </div>
-                    <p className="text-slate-700 font-medium text-lg leading-snug">{item}</p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
+                <span style={{ fontFamily: F.b, fontSize: 12, color: C.m }}>Pregunta {step + 1} de {QS.length}</span>
+                <div style={{ display: "flex", gap: 4 }}>{QS.map((_, i) => <div key={i} style={{ width: 24, height: 3, borderRadius: 2, background: i <= step ? C.blue : C.border }} />)}</div>
+              </div>
+              <h3 style={{ fontFamily: F.b, fontSize: 17, color: C.w, fontWeight: 600, lineHeight: 1.4, marginBottom: 22 }}>{QS[step].q}</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+                {QS[step].a.map((a, i) => (
+                  <button key={i} onClick={() => answer(i)} style={{ fontFamily: F.b, fontSize: 14, color: C.g, background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 8, padding: "13px 18px", cursor: "pointer", textAlign: "left", transition: "all 0.2s" }}
+                    onMouseEnter={e => { e.target.style.borderColor = C.blue; e.target.style.color = C.w; }}
+                    onMouseLeave={e => { e.target.style.borderColor = C.border; e.target.style.color = C.g; }}
+                  >{a}</button>
+                ))}
+              </div>
+            </div>
+          )}
+          {step === QS.length && (
+            <div style={{ textAlign: "center" }}>
+              <p style={{ fontFamily: F.b, fontSize: 12, color: C.m, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Tu puntaje de madurez comercial</p>
+              <div style={{ position: "relative", width: 140, height: 140, margin: "0 auto 18px" }}>
+                <svg width="140" height="140" viewBox="0 0 140 140">
+                  <circle cx="70" cy="70" r="60" fill="none" stroke={C.border} strokeWidth="8" />
+                  <circle cx="70" cy="70" r="60" fill="none" stroke={lc} strokeWidth="8" strokeDasharray={`${pct * 3.77} 377`} strokeLinecap="round" transform="rotate(-90 70 70)" style={{ transition: "stroke-dasharray 1s ease" }} />
+                </svg>
+                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", textAlign: "center" }}>
+                  <span style={{ fontFamily: F.b, fontSize: 34, fontWeight: 800, color: lc }}>{pct}</span>
+                  <span style={{ fontFamily: F.b, fontSize: 12, color: C.m, display: "block" }}>/100</span>
+                </div>
+              </div>
+              <p style={{ fontFamily: F.b, fontSize: 15, fontWeight: 600, color: lc, marginBottom: 4 }}>Nivel: {level}</p>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.6, marginBottom: 22, maxWidth: 420, margin: "0 auto 22px" }}>
+                {pct >= 55 ? "Tu operación tiene una base sólida. Un diagnóstico profesional revelaría los puntos específicos para dar el siguiente paso con confianza." : "Hay oportunidades importantes de mejora en tu operación comercial. Un diagnóstico de una semana te mostraría exactamente dónde están y cómo abordarlas."}
+              </p>
+              <div style={{ background: C.bg2, borderRadius: 8, padding: "18px", marginBottom: 14 }}>
+                <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, marginBottom: 12 }}>¿Quieres el diagnóstico completo? Déjanos tu correo y coordinamos una conversación de 30 minutos sin compromiso.</p>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <input type="email" placeholder="tu@empresa.cl" value={email} onChange={e => setEmail(e.target.value)} style={{ flex: 1, fontFamily: F.b, fontSize: 13, color: C.w, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px", outline: "none" }} />
+                  <button style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: "#fff", background: C.blue, border: "none", borderRadius: 6, padding: "10px 18px", cursor: "pointer", whiteSpace: "nowrap" }}>Enviar</button>
+                </div>
+              </div>
+              <button onClick={() => { setStep(-1); setAns([]); setEmail(""); }} style={{ fontFamily: F.b, fontSize: 12, color: C.m, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Repetir evaluación</button>
+            </div>
+          )}
+        </div>
+      </FI>
+    </section>
+  );
+}
+
+/* ── A quién ayudamos ── */
+function Quien() {
+  const vs = [
+    { i: "⚖️", n: "Servicios profesionales", e: "Estudios jurídicos · Consultoras de ingeniería · Arquitectura · Auditoría · Firmas de búsqueda de talento" },
+    { i: "🏭", n: "Distribución e industria", e: "Distribuidores de equipos · Partes y consumibles · Materiales especializados · Químicos industriales" },
+    { i: "🔄", n: "Servicios recurrentes a empresas", e: "Administración de edificios · Limpieza industrial · Seguridad · Alimentación corporativa · Salud laboral" },
+  ];
+  return (
+    <section id="quien" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><Tag>A quién ayudamos</Tag></FI>
+      <FI delay={0.08}>
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4vw,42px)", color: C.w, lineHeight: 1.12, margin: "18px 0 8px", fontWeight: 400 }}>
+          Empresas B2B con equipos comerciales que necesitan orden.
+        </h2>
+      </FI>
+      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 36px", fontWeight: 300, lineHeight: 1.65, maxWidth: 600 }}>
+        Trabajamos con dueños de empresas que venden a otras empresas, que tienen equipos de entre tres y doce personas en función comercial, y que saben que necesitan ordenar su operación para crecer sin depender de una sola persona.
+      </p></FI>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12, maxWidth: 700 }}>
+        {vs.map((v, i) => (
+          <FI key={i} delay={0.06 + i * 0.05}>
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "20px 22px", display: "flex", gap: 16, alignItems: "flex-start", boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
+              <span style={{ fontSize: 28, flexShrink: 0, marginTop: 2 }}>{v.i}</span>
+              <div>
+                <h3 style={{ fontFamily: F.b, fontSize: 16, fontWeight: 600, color: C.w, margin: "0 0 4px" }}>{v.n}</h3>
+                <p style={{ fontFamily: F.b, fontSize: 12, color: C.m, margin: 0 }}>{v.e}</p>
+              </div>
+            </div>
+          </FI>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Pipedrive ── */
+function PipeSec() {
+  return (
+    <section style={{ padding: "80px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI>
+        <div style={{ background: C.greenSoft, border: `1px solid ${C.greenBorder}`, borderRadius: 14, padding: "48px 36px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 40, flexWrap: "wrap", alignItems: "flex-start" }}>
+            <div style={{ flex: 1, minWidth: 300 }}>
+              <Tag color={C.green} bg={C.greenSoft}>Nuestra herramienta central</Tag>
+              <div style={{ margin: "18px 0 20px" }}>
+                <span style={{ fontFamily: F.b, fontSize: 32, fontWeight: 700, color: C.green, letterSpacing: "-0.02em" }}>pipedrive</span>
+              </div>
+              <h3 style={{ fontFamily: F.d, fontSize: 26, color: C.w, margin: "0 0 16px", fontWeight: 400 }}>
+                El gestor de clientes que tu equipo realmente va a usar.
+              </h3>
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 300 }}>
+                La mayoría de las empresas que llegan a nosotros ya pagaron por un gestor de clientes que nadie usa. El problema nunca fue la herramienta — fue que nadie la configuró como sistema de decisión.
+              </p>
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 300 }}>
+                Elegimos Pipedrive porque es la plataforma que mejor se adapta a equipos comerciales de empresas medianas: es visual, intuitiva, y tiene una curva de adopción que permite que tu equipo esté operando en semanas, no en meses.
+              </p>
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.w, lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
+                No vendemos la herramienta. La configuramos para que funcione como el centro de operaciones de tu área comercial — donde tu equipo registra, donde tú decides, y donde las proyecciones se construyen con datos reales.
+              </p>
+            </div>
+            <div style={{ minWidth: 240 }}>
+              <div style={{ background: "#fff", border: `1px solid ${C.greenBorder}`, borderRadius: 10, padding: "24px 20px" }}>
+                <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.green, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 16px" }}>Por qué Pipedrive</p>
+                {["Tu equipo lo adopta en semanas, no meses", "Más económico que alternativas complejas", "Visual e intuitivo para vendedores no técnicos", "Proyecciones y embudos claros desde el día uno", "Se integra con las herramientas que ya usas"].map((item, i) => (
+                  <div key={i} style={{ display: "flex", gap: 8, marginBottom: 10, alignItems: "flex-start" }}>
+                    <span style={{ color: C.green, fontSize: 14, marginTop: 1, flexShrink: 0 }}>✓</span>
+                    <span style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.5 }}>{item}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl transform rotate-3 opacity-10"></div>
-              <div className="relative bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-xl">
-                 <div className="space-y-4">
-                    <div className="flex items-center justify-between gap-4 mb-4 border-b border-slate-200 pb-4">
-                         <div className="text-center">
-                            <div className="w-12 h-12 bg-slate-200 rounded-full mx-auto mb-2 flex items-center justify-center text-slate-400">?</div>
-                            <span className="text-xs text-slate-500">Antes</span>
-                         </div>
-                         <ArrowRight className="text-slate-300" />
-                         <div className="text-center">
-                            <div className="w-12 h-12 bg-cyan-100 rounded-full mx-auto mb-2 flex items-center justify-center text-cyan-600 border border-cyan-200"><CheckCircle size={20}/></div>
-                            <span className="text-xs font-bold text-cyan-700">Después</span>
-                         </div>
-                    </div>
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-3 bg-white p-3 rounded border border-slate-100 shadow-sm">
-                            <div className="w-2 h-2 rounded-full bg-cyan-500"></div>
-                            <p className="text-sm text-slate-700 font-medium">Playbook de Ventas Definido</p>
-                        </div>
-                        <div className="flex items-center gap-3 bg-white p-3 rounded border border-slate-100 shadow-sm">
-                            <div className="w-2 h-2 rounded-full bg-cyan-500"></div>
-                            <p className="text-sm text-slate-700 font-medium">Automatización de Tareas Repetitivas</p>
-                        </div>
-                         <div className="flex items-center gap-3 bg-white p-3 rounded border border-slate-100 shadow-sm">
-                            <div className="w-2 h-2 rounded-full bg-cyan-500"></div>
-                            <p className="text-sm text-slate-700 font-medium">Coaching basado en Datos Reales</p>
-                        </div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="max-w-4xl mx-auto p-8 bg-slate-900 rounded-2xl border-l-4 border-cyan-500 shadow-xl transform hover:scale-[1.01] transition-transform duration-300">
-            <p className="italic text-slate-300 font-medium text-xl leading-relaxed text-center">
-              "La tecnología por sí sola no vende. Necesitas personas capacitadas y alineadas estratégicamente ejecutando un proceso validado sobre una plataforma eficiente."
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* SERVICIOS */}
-      <section id="servicios" className="py-20 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Soluciones de Habilitación de Ventas</h2>
-            <p className="text-slate-600">Transformamos tu operación combinando estrategia humana y eficiencia tecnológica.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <article key={index} className={`bg-white rounded-2xl p-6 border transition-all duration-300 hover:shadow-xl relative flex flex-col ${service.highlight ? 'border-cyan-500 shadow-lg scale-105 z-10' : 'border-slate-100'}`}>
-                {service.highlight && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-cyan-500 text-white text-xs font-bold uppercase tracking-wide">
-                    Punto de Partida
-                  </div>
-                )}
-                <div className="mb-4 bg-slate-50 w-14 h-14 rounded-xl flex items-center justify-center border border-slate-100">
-                  {service.icon}
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-1">{service.title}</h3>
-                <p className="text-cyan-600 font-medium text-xs mb-3">{service.subtitle}</p>
-                <p className="text-slate-600 text-sm mb-4 flex-grow text-justify leading-snug">{service.description}</p>
-                
-                <div className="border-t border-slate-100 pt-4 mt-auto">
-                   <div className="text-slate-900 font-bold text-base mb-3">{service.price}</div>
-                   <ul className="space-y-2 mb-6">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-slate-600">
-                           <ChevronRight className="w-3 h-3 text-cyan-500 mt-0.5 flex-shrink-0" />
-                           {feature}
-                        </li>
-                      ))}
-                   </ul>
-                   <a href="#contacto" className={`block w-full text-center py-2.5 rounded-lg font-bold text-sm transition-colors ${service.highlight ? 'bg-slate-900 text-white hover:bg-slate-800' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}>
-                     Me interesa
-                   </a>
-                </div>
-              </article>
-            ))}
           </div>
         </div>
-      </section>
+      </FI>
+    </section>
+  );
+}
 
-      {/* FILOSOFIA */}
-      <section id="filosofia" className="py-20 bg-white text-slate-900">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-200 relative overflow-hidden shadow-lg">
-            <div className="relative z-10">
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-slate-900">Nuestra Filosofía de Trabajo</h2>
-                <div className="grid md:grid-cols-2 gap-8 mt-8">
-                    <div>
-                        <h4 className="text-cyan-600 font-bold mb-2 flex items-center gap-2">
-                          <Users className="w-5 h-5" /> Entendemos al Vendedor
-                        </h4>
-                        <p className="text-slate-600 text-sm leading-relaxed text-justify">
-                            Sabemos que un CRM sin estrategia se convierte en burocracia, no en ventaja. Diseñamos cada proceso pensando obsesivamente en la experiencia del usuario final: tu vendedor. Eliminamos la fricción administrativa para que el talento de tu equipo se enfoque 100% en negociar, persuadir y cerrar ventas.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 className="text-cyan-600 font-bold mb-2 flex items-center gap-2">
-                          <Briefcase className="w-5 h-5" /> Pragmatismo Puro
-                        </h4>
-                        <p className="text-slate-600 text-sm leading-relaxed text-justify">
-                            No somos consultores de escritorio que solo leen libros. Somos líderes comerciales activos gestionando equipos de alto rendimiento. Implementamos estrategias probadas en la trinchera diaria de las ventas, asegurando soluciones prácticas y resultados reales para tu industria.
-                        </p>
-                    </div>
-                </div>
+/* ── Fricción ── */
+function Friction() {
+  return (
+    <section style={{ padding: "60px 24px", maxWidth: 700, margin: "0 auto" }}>
+      <FI>
+        <div style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 14, padding: "40px 32px", textAlign: "center" }}>
+          <p style={{ fontFamily: F.d, fontSize: 21, color: C.w, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 16px" }}>"¿Y si mis vendedores se resisten al cambio?"</p>
+          <div style={{ width: 36, height: 1, background: C.border, margin: "0 auto 16px" }} />
+          <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: 0, fontWeight: 300 }}>
+            El vendedor que es bueno de verdad agradece la estructura porque le facilita el trabajo. El que se resiste a la transparencia, generalmente es porque se beneficia de la falta de orden. Ayudar al dueño a distinguir entre los dos es, en sí mismo, una de las cosas más valiosas que entregamos.
+          </p>
+        </div>
+      </FI>
+    </section>
+  );
+}
+
+/* ── Blog ── */
+function Blog() {
+  const posts = [
+    { tag: "Diagnóstico", title: "Por qué el gestor de clientes de tu empresa es un archivo muerto (y cómo cambiarlo)", desc: "El problema no es la herramienta. Es que nadie la configuró como sistema de decisión." },
+    { tag: "Fundadores", title: "El costo oculto de que el dueño siga cerrando los negocios importantes", desc: "Tu hora vale mucho más en estrategia que en ventas. Los números que lo demuestran." },
+    { tag: "Equipos", title: "Cómo ordenar un equipo comercial sin generar una crisis interna", desc: "La estructura no es el enemigo del vendedor bueno. Es su mejor aliado." },
+  ];
+  return (
+    <section style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><div style={{ marginBottom: 32 }}>
+        <Tag>Contenido</Tag>
+        <h2 style={{ fontFamily: F.d, fontSize: 30, color: C.w, margin: "14px 0 0", fontWeight: 400 }}>Ideas para dueños de empresa que quieren vender con sistema.</h2>
+      </div></FI>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
+        {posts.map((p, i) => (
+          <FI key={i} delay={0.05 + i * 0.05}>
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "26px 22px", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = C.blueLight; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.06)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.03)"; }}>
+              <span style={{ fontFamily: F.b, fontSize: 10, fontWeight: 600, color: C.blue, letterSpacing: "0.1em", textTransform: "uppercase" }}>{p.tag}</span>
+              <h3 style={{ fontFamily: F.b, fontSize: 15, fontWeight: 600, color: C.w, margin: "8px 0", lineHeight: 1.35 }}>{p.title}</h3>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: C.m, margin: 0, lineHeight: 1.5, fontWeight: 300 }}>{p.desc}</p>
+              <p style={{ fontFamily: F.b, fontSize: 12, color: C.blue, marginTop: 14, fontWeight: 500 }}>Próximamente →</p>
             </div>
+          </FI>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── CTA ── */
+function CTA() {
+  return (
+    <section id="contacto" style={{ padding: "100px 24px 120px", maxWidth: 1120, margin: "0 auto" }}>
+      <FI><div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(30px,4.5vw,46px)", color: C.w, lineHeight: 1.1, margin: "0 0 16px", fontWeight: 400 }}>
+          Empezamos con una conversación,<br /><em style={{ color: C.blue }}>no con un contrato.</em>
+        </h2>
+        <p style={{ fontFamily: F.b, fontSize: 16, color: C.g, lineHeight: 1.65, margin: "0 auto 10px", fontWeight: 300, maxWidth: 540 }}>
+          Una reunión de 30 minutos para entender tu situación. Si tiene sentido avanzar, te proponemos un diagnóstico de una semana. Si no somos lo que necesitas, te lo decimos nosotros primero.
+        </p>
+        <p style={{ fontFamily: F.b, fontSize: 12, color: C.m, margin: "0 0 36px" }}>Sin compromiso. Sin presión. Sin letra chica.</p>
+        <a href="https://webforms.pipedrive.com/f/5VQRZL0MsGJQiok9MG29Iz5dQy7aUyM1lHSPnRiSTEamMlDrYtjcCI9yLJJIKTWpb5" target="_blank" rel="noopener noreferrer" style={{ fontFamily: F.b, fontSize: 15, fontWeight: 600, color: "#fff", background: C.blue, padding: "16px 44px", borderRadius: 8, textDecoration: "none", display: "inline-block", boxShadow: `0 4px 24px ${C.blueGlow}` }}>Agendar una conversación</a>
+        <div style={{ marginTop: 44, display: "flex", justifyContent: "center", gap: 36, alignItems: "flex-start", flexWrap: "wrap" }}>
+          {[["Correo", "contacto@salesopsconsulting.cl"], ["Sitio web", "salesopsconsulting.cl"]].map(([l, v], i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <p style={{ fontFamily: F.b, fontSize: 10, color: C.m, margin: "0 0 3px", textTransform: "uppercase", letterSpacing: "0.12em" }}>{l}</p>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, margin: 0 }}>{v}</p>
+            </div>
+          ))}
+          <div style={{ textAlign: "center" }}>
+            <p style={{ fontFamily: F.b, fontSize: 10, color: C.m, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.12em" }}>Síguenos</p>
+            <SocialLinks size={18} gap={14} color={C.m} />
           </div>
         </div>
-      </section>
+      </div></FI>
+    </section>
+  );
+}
 
-      {/* CONTACTO */}
-      <section id="contacto" className="py-20 bg-white">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">¿Hablamos de tus resultados?</h2>
-            <p className="text-slate-600">Agenda una sesión de exploración de 15 minutos para entender los desafíos de tu equipo comercial.</p>
-          </div>
+/* ── Footer ── */
+function Footer() {
+  return (
+    <footer style={{ borderTop: `1px solid ${C.border}`, padding: "28px 24px" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+        <p style={{ fontFamily: F.b, fontSize: 11, color: C.m, margin: 0 }}>© 2026 SalesOps Consulting SpA · Santiago, Chile</p>
+        <SocialLinks size={16} gap={14} color={C.m} />
+      </div>
+    </footer>
+  );
+}
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Información */}
-            <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                    <div className="bg-cyan-50 p-3 rounded-lg">
-                        <Mail className="w-6 h-6 text-cyan-600" />
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-slate-900">Correo Electrónico</h4>
-                        <p className="text-slate-600">contacto@salesopsconsulting.cl</p>
-                        <p className="text-sm text-slate-500 mt-1">Respuesta en menos de 24 horas.</p>
-                    </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                    <div className="bg-cyan-50 p-3 rounded-lg">
-                        <Globe className="w-6 h-6 text-cyan-600" />
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-slate-900">Redes Sociales</h4>
-                        <p className="text-slate-600 mb-2">Síguenos en nuestras redes</p>
-                        <div className="flex gap-4">
-                            <a href="https://www.linkedin.com/company/salesops-consulting" target="_blank" rel="noopener noreferrer" className="bg-slate-100 p-2 rounded-full text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-colors" aria-label="LinkedIn">
-                                <Linkedin className="w-5 h-5" />
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-slate-100 p-2 rounded-full text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-colors" aria-label="Facebook">
-                                <Facebook className="w-5 h-5" />
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-slate-100 p-2 rounded-full text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-colors" aria-label="Instagram">
-                                <Instagram className="w-5 h-5" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                    <div className="bg-cyan-50 p-3 rounded-lg">
-                        <Phone className="w-6 h-6 text-cyan-600" />
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-slate-900">Teléfono</h4>
-                        <p className="text-slate-600">+56 9 9062 0873</p>
-                        <p className="text-sm text-slate-500 mt-1">Hablemos por WhatsApp.</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Formulario Integrado con HubSpot */}
-            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative overflow-hidden">
-                {formStatus === 'success' ? (
-                  <div className="absolute inset-0 bg-slate-50 flex flex-col items-center justify-center p-8 text-center animate-fade-in-up">
-                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
-                      <CheckCircle size={32} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-slate-900 mb-2">¡Mensaje Enviado!</h3>
-                    <p className="text-slate-600">Gracias por contactarnos. Te responderemos en menos de 24 horas.</p>
-                    <button onClick={() => setFormStatus('idle')} className="mt-6 text-cyan-600 font-bold hover:underline">Volver al formulario</button>
-                  </div>
-                ) : (
-                  <form className="space-y-4" onSubmit={handleSubmit}>
-                      <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="firstname">Nombre</label>
-                          <input 
-                            type="text" 
-                            id="firstname"
-                            name="firstname" 
-                            value={formData.firstname}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
-                            placeholder="Tu nombre" 
-                          />
-                      </div>
-                    <div className="mb-4">
-              <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="lastname">Apellido</label>
-              <input 
-                type="text" 
-                id="lastname"
-                name="lastname" 
-                value={formData.lastname}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
-                placeholder="Tu apellido" 
-              />
-            </div>
-                    <div className="mb-4">
-              <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="phone">Teléfono</label>
-              <input 
-                type="tel" 
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
-                placeholder="+56 9 ..." 
-              />
-            </div>
-                      <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="email">Correo Electrónico</label>
-                          <input 
-                            type="email" 
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
-                            placeholder="tu@empresa.com" 
-                          />
-                      </div>
-                      <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="company">Empresa</label>
-                          <input 
-                            type="text" 
-                            id="company"
-                            name="company"
-                            value={formData.company}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition" 
-                            placeholder="Nombre de tu empresa" 
-                          />
-                      </div>
-                      <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-1" htmlFor="message">Principal desafío actual:</label>
-                          <select 
-                            id="message"
-                            name="message"
-                            value={formData.message}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition"
-                          >
-                              <option>Equipo desordenado / Sin proceso</option>
-                              <option>Uso ineficiente del CRM</option>
-                              <option>Falta de liderazgo/coaching</option>
-                              <option>Necesito automatizar tareas</option>
-                          </select>
-                      </div>
-                      
-                      {formStatus === 'error' && (
-                        <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg flex items-center gap-2">
-                          <AlertTriangle size={16} /> Hubo un error al enviar. Por favor intenta de nuevo.
-                        </div>
-                      )}
-
-                      <button 
-                        type="submit" 
-                        disabled={formStatus === 'submitting'}
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-lg transition-all shadow-lg mt-4 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-                      >
-                          {formStatus === 'submitting' ? (
-                            <> <Loader className="animate-spin" size={20} /> Enviando... </>
-                          ) : (
-                            <> <Send size={20} /> Solicitar Conversación </>
-                          )}
-                      </button>
-                      <p className="text-xs text-center text-slate-500 mt-2">Tus datos están seguros. 0% Spam.</p>
-                  </form>
-                )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-center md:text-left flex items-center gap-3">
-                 <div className="w-6 h-6 relative flex items-center justify-center">
-                    {/* Logo Pequeño Footer */}
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="#06B6D4" strokeWidth="3" fill="none" strokeDasharray="4 2"/>
-                        <path d="M24 8V4M44 24H40M24 44V40M4 24H8M38.1 38.1L35.3 35.3M9.9 9.9L12.7 12.7M38.1 9.9L35.3 12.7M9.9 38.1L12.7 35.3" stroke="#06B6D4" strokeWidth="3" strokeLinecap="round"/>
-                        <rect x="14" y="26" width="4" height="8" rx="1" fill="#22D3EE" />
-                        <rect x="22" y="20" width="4" height="14" rx="1" fill="#06B6D4" />
-                        <rect x="30" y="14" width="4" height="20" rx="1" fill="#1E3A8A" />
-                        <path d="M12 30L22 20L30 24L40 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M34 10H40V16" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                 </div>
-                <div>
-                    <h3 className="text-white font-bold text-lg mb-0 leading-none">SalesOps Consulting</h3>
-                    <p className="text-xs mt-1">Potenciando equipos de venta B2B, B2C y B2G.</p>
-                </div>
-            </div>
-            <div className="flex gap-6 text-sm font-medium">
-                <a href="#servicios" className="hover:text-cyan-400 transition">Servicios</a>
-                <a href="https://www.linkedin.com/company/salesops-consulting" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">LinkedIn</a>
-                <a href="#contacto" className="hover:text-cyan-400 transition">Contacto</a>
-            </div>
-            <div className="text-xs text-slate-600">
-                © {new Date().getFullYear()} SalesOps Consulting. Santiago, Chile.
-            </div>
-        </div>
-      </footer>
-
+/* ── App ── */
+export default function SalesOpsWeb() {
+  return (
+    <div style={{ background: C.bg, color: C.w, minHeight: "100vh" }}>
+      <style>{`
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        ::selection{background:rgba(45,63,143,0.15);color:#0f172a}
+        body{overflow-x:hidden;background:#ffffff}
+        @media(max-width:768px){
+          section{padding:60px 16px!important}
+          div[style*="grid-template-columns: repeat(3"]{grid-template-columns:1fr!important}
+          div[style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr!important}
+          .nav-links{display:none!important}
+        }
+        input::placeholder{color:${C.d}}
+      `}</style>
+      <Nav />
+      <Hero />
+      <Problema />
+      <Valor />
+      <Metodo />
+      <Eval />
+      <Quien />
+      <PipeSec />
+      <Friction />
+      <Blog />
+      <CTA />
+      <Footer />
     </div>
   );
-};
-
-export default App;
+}
