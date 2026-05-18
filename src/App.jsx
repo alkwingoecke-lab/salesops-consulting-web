@@ -172,8 +172,8 @@ function Problema() {
 
 /* ── Valor ── */
 function Valor() {
-  const L = ["No sé cuánto vamos a cerrar este mes.", "Los vendedores pierden medio día en tareas administrativas.", "Si se va alguien clave, el negocio sufre.", "Yo sigo cerrando los negocios importantes."];
-  const R = ["La proyección del trimestre tiene menos de 15% de desviación.", "Cada vendedor recuperó 8 horas semanales para dedicar a vender.", "Un vendedor nuevo opera al 80% en un mes, gracias al sistema documentado.", "Mi equipo cierra negocios sin que yo esté presente."];
+  const L = ["No sé cuánto vamos a cerrar este mes.", "Los vendedores pierden tiempo en tareas administrativas.", "Si se mi mejor vendedor, el negocio queda en riesgo.", "Yo sigo cerrando los negocios importantes."];
+  const R = ["La proyección del trimestre tiene menos de 15% de desviación.", "Cada vendedor recuperó 8 horas semanales para dedicar a vender.", "Un vendedor nuevo opera al 80% en un mes, gracias al sistema documentado.", "Mi equipo cierra negocios consistentemente y puedo dedicarle tiempo a la estrategia y el resto de la empresa."];
   return (
     <section style={{ padding: "80px 24px", maxWidth: 1120, margin: "0 auto" }}>
       <FI><div style={{ textAlign: "center", marginBottom: 44 }}>
@@ -199,9 +199,9 @@ function Valor() {
 /* ── Método TAG ── */
 function Metodo() {
   const ps = [
-    { l: "T", t: "Análisis", sub: "Diagnosticamos antes de operar", desc: "En una semana revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un puntaje de madurez de 0 a 100 y las cinco acciones prioritarias para tu caso específico.", foot: "Si no agregamos valor, devolvemos la mitad del costo. Sin explicaciones.", c: C.blue },
-    { l: "A", t: "Arquitectura", sub: "Construimos el sistema operativo de ventas", desc: "Ordenamos tu gestor de clientes para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y alineamos la compensación del equipo con los resultados del negocio.", foot: "Seis a ocho semanas. Herramienta central: Pipedrive.", c: "#6366f1" },
-    { l: "G", t: "Gobernanza", sub: "Lideramos la ejecución del día a día", desc: "Insertamos un gerente de ventas a tiempo parcial que lidera las reuniones del equipo, acompaña a cada vendedor individualmente y se asegura de que el sistema funcione. A un tercio del costo de una contratación directa.", foot: "Nuestra meta: que en 18-24 meses tu empresa ya no nos necesite.", c: C.amber },
+    { l: "T", t: "Análisis", sub: "Diagnosticamos profundamente antes de operar", desc: "Revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un informe completo, con la descripción por área, con puntos de dolor, puntuación de 0 a 100 y las acciones necesarias para optimizar tu operación.",
+    { l: "A", t: "Arquitectura", sub: "Construimos y Optimizamos tu sistema operativo de ventas", desc: "Ordenamos tu gestor de clientes (CRM) para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y te ayudamos a definir la compensación de tu equipo.", foot: "Seis a ocho semanas. CCRM Principal: Pipedrive, pero nos adaptamos a tu stack.", c: "#6366f1" },
+    { l: "G", t: "Gobernanza", sub: "Lideramos la ejecución del día a día", desc: "Te ofrecemos un Líder Comercial Externo a tiempo parcial que lidera al equipo, acompaña a cada vendedor y se asegura de que cada proceso del sistema funcione y se cumplan las proyecciones. A una fracción del costo de una contratación directa.", foot: "Te acompañamos y preparamos el camino para que un día no nos necesites", c: C.amber },
   ];
   return (
     <section id="metodo" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
@@ -213,7 +213,8 @@ function Metodo() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
         {ps.map((p, i) => (
           <FI key={i} delay={0.06 + i * 0.07}>
-            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `3px solid ${p.c}`, borderRadius: 10, padding: "28px 22px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `3px solid ${p.c}`, borderRadius: 10, padding: "28px 22px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 3px rgb
+            a(0,0,0,0.04)" }}>
               <span style={{ fontFamily: F.d, fontSize: 48, color: p.c, lineHeight: 1, opacity: 0.6 }}>{p.l}</span>
               <h3 style={{ fontFamily: F.b, fontSize: 20, fontWeight: 700, color: C.w, margin: "8px 0 3px" }}>{p.t}</h3>
               <p style={{ fontFamily: F.b, fontSize: 13, color: p.c, margin: "0 0 14px", fontWeight: 500 }}>{p.sub}</p>
@@ -240,11 +241,35 @@ function Eval() {
   const [step, setStep] = useState(-1);
   const [ans, setAns] = useState([]);
   const [email, setEmail] = useState("");
+  const [statusEnvio, setStatusEnvio] = useState("idle");
   const score = ans.reduce((s, a) => s + (3 - a) * 5, 0);
   const mx = 75, pct = Math.round((score / mx) * 100);
   const level = pct >= 75 ? "Maduro" : pct >= 55 ? "Funcional" : pct >= 35 ? "En desarrollo" : "Requiere atención urgente";
   const lc = pct >= 75 ? "#16a34a" : pct >= 55 ? C.blue : pct >= 35 ? "#b8860b" : C.red;
   const answer = (v) => { const na = [...ans, v]; setAns(na); na.length >= QS.length ? setStep(QS.length) : setStep(step + 1); };
+  const enviarDiagnostico = async () => {
+    if (!email) return;
+    setStatusEnvio("enviando");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/contacto@salesopsconsulting.cl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          _subject: "🔥 Nuevo Lead - Autoevaluación Web",
+          Correo_Cliente: email,
+          Puntaje_Obtenido: `${pct}/100`,
+          Nivel_Madurez: level
+        })
+      });
+      if (res.ok) setStatusEnvio("exito");
+      else setStatusEnvio("error");
+    } catch (error) {
+      setStatusEnvio("error");
+    }
+  };
 
   return (
     <section id="eval" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
@@ -297,13 +322,25 @@ function Eval() {
               <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.6, marginBottom: 22, maxWidth: 420, margin: "0 auto 22px" }}>
                 {pct >= 55 ? "Tu operación tiene una base sólida. Un diagnóstico profesional revelaría los puntos específicos para dar el siguiente paso con confianza." : "Hay oportunidades importantes de mejora en tu operación comercial. Un diagnóstico de una semana te mostraría exactamente dónde están y cómo abordarlas."}
               </p>
-              <div style={{ background: C.bg2, borderRadius: 8, padding: "18px", marginBottom: 14 }}>
-                <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, marginBottom: 12 }}>¿Quieres el diagnóstico completo? Déjanos tu correo y coordinamos una conversación de 30 minutos sin compromiso.</p>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <input type="email" placeholder="tu@empresa.cl" value={email} onChange={e => setEmail(e.target.value)} style={{ flex: 1, fontFamily: F.b, fontSize: 13, color: C.w, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px", outline: "none" }} />
-                  <button style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: "#fff", background: C.blue, border: "none", borderRadius: 6, padding: "10px 18px", cursor: "pointer", whiteSpace: "nowrap" }}>Enviar</button>
-                </div>
-              </div>
+             <div style={{ background: C.bg2, borderRadius: 8, padding: "18px", marginBottom: 14 }}>
+  <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, marginBottom: 12 }}>¿Quieres el diagnóstico completo? Déjanos tu correo y coordinamos una conversación de 30 minutos sin compromiso.</p>
+  
+  {statusEnvio === "exito" ? (
+    <div style={{ padding: "10px", background: C.blueSoft, borderRadius: 6, color: C.blue, textAlign: "center", fontWeight: 600, fontSize: 13 }}>
+      ¡Recibido! Te contactaremos pronto al correo indicado.
+    </div>
+  ) : (
+    <div style={{ display: "flex", gap: 8 }}>
+      <input type="email" placeholder="tu@empresa.cl" value={email} onChange={e => setEmail(e.target.value)} style={{ flex: 1, fontFamily: F.b, fontSize: 13, color: C.w, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px", outline: "none" }} />
+      <button onClick={enviarDiagnostico} disabled={statusEnvio === "enviando"} style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: "#fff", background: C.blue, border: "none", borderRadius: 6, padding: "10px 18px", cursor: statusEnvio === "enviando" ? "not-allowed" : "pointer", whiteSpace: "nowrap", opacity: statusEnvio === "enviando" ? 0.7 : 1 }}>
+        {statusEnvio === "enviando" ? "Enviando..." : "Enviar"}
+      </button>
+    </div>
+  )}
+  {statusEnvio === "error" && (
+    <p style={{ color: C.red, fontSize: 12, marginTop: 8, fontWeight: 500 }}>Hubo un error de conexión. Por favor intenta de nuevo.</p>
+  )}
+</div>
               <button onClick={() => { setStep(-1); setAns([]); setEmail(""); }} style={{ fontFamily: F.b, fontSize: 12, color: C.m, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Repetir evaluación</button>
             </div>
           )}
