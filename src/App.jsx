@@ -199,7 +199,7 @@ function Valor() {
 /* ── Método TAG ── */
 function Metodo() {
   const ps = [
-    { l: "T", t: "Análisis", sub: "Diagnosticamos profundamente antes de operar", desc: "Revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un informe completo, con la descripción por área, con puntos de dolor, puntuación de 0 a 100 y las acciones necesarias para optimizar tu operación.",
+    { l: "T", t: "Análisis", sub: "Diagnosticamos profundamente antes de operar", desc: "Revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un informe completo, con la descripción por área, con puntos de dolor, puntuación de 0 a 100 y las acciones necesarias para optimizar tu operación."},
     { l: "A", t: "Arquitectura", sub: "Construimos y Optimizamos tu sistema operativo de ventas", desc: "Ordenamos tu gestor de clientes (CRM) para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y te ayudamos a definir la compensación de tu equipo.", foot: "Seis a ocho semanas. CCRM Principal: Pipedrive, pero nos adaptamos a tu stack.", c: "#6366f1" },
     { l: "G", t: "Gobernanza", sub: "Lideramos la ejecución del día a día", desc: "Te ofrecemos un Líder Comercial Externo a tiempo parcial que lidera al equipo, acompaña a cada vendedor y se asegura de que cada proceso del sistema funcione y se cumplan las proyecciones. A una fracción del costo de una contratación directa.", foot: "Te acompañamos y preparamos el camino para que un día no nos necesites", c: C.amber },
   ];
