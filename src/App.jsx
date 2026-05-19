@@ -398,31 +398,35 @@ function Eval() {
 
 /* ── A quién ayudamos ── */
 function Quien() {
-  const vs = [
-    { i: "⚖️", n: "Servicios profesionales", e: "Estudios jurídicos · Consultoras de ingeniería · Arquitectura · Auditoría · Firmas de búsqueda de talento" },
-    { i: "🏭", n: "Distribución e industria", e: "Distribuidores de equipos · Partes y consumibles · Materiales especializados · Químicos industriales" },
-    { i: "🔄", n: "Servicios recurrentes a empresas", e: "Administración de edificios · Limpieza industrial · Seguridad · Alimentación corporativa · Salud laboral" },
+  const icp = [
+    { i: "⚓", n: "El crecimiento depende de pocos", e: "Es natural que al principio los socios cierren las ventas clave. Pero ahora buscas que el equipo adquiera esa autonomía para que tú puedas enfocarte en la estrategia y la visión del negocio." },
+    { i: "🌫️", n: "Falta de un proceso compartido", e: "Cuentas con un buen equipo, pero cada vendedor tiene su propia forma de operar. Esto hace que las proyecciones a veces se sientan inciertas y sea difícil replicar el éxito de tus mejores talentos." },
+    { i: "⚙️", n: "Tecnología desaprovechada", e: "Se ha invertido en herramientas o CRM, pero a menudo se perciben como una carga administrativa. La información aún se dispersa en correos o planillas, limitando la visibilidad del día a día." }
   ];
+  
   return (
     <section id="quien" style={{ padding: "100px 24px", maxWidth: 1120, margin: "0 auto" }}>
       <FI><Tag>A quién ayudamos</Tag></FI>
+      
       <FI delay={0.08}>
-        <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4vw,42px)", color: C.w, lineHeight: 1.12, margin: "18px 0 8px", fontWeight: 400 }}>
-          Empresas B2B con equipos comerciales que necesitan orden.
+        <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4vw,42px)", color: C.w, lineHeight: 1.12, margin: "18px 0 16px", fontWeight: 400 }}>
+          Empresas B2B que están listas para crecer, pero sienten que su estructura comercial necesita evolucionar.
         </h2>
       </FI>
-      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 36px", fontWeight: 400, lineHeight: 1.65, maxWidth: 600 }}>
-        Trabajamos con dueños de empresas que venden a otras empresas, que tienen equipos de entre tres y doce personas en función comercial, y que saben que necesitan ordenar su operación para crecer sin depender de una sola persona.
-      </p></FI>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12, maxWidth: 700 }}>
-        {vs.map((v, i) => (
+      
+      <FI delay={0.12}>
+        <p style={{ fontFamily: F.b, fontSize: 16, color: C.g, margin: "0 0 48px", fontWeight: 400, lineHeight: 1.65, maxWidth: 840 }}>
+          Más que limitarnos a un rubro específico (acompañamos a empresas de tecnología, servicios, distribución y más), nos enfocamos en tu etapa operativa. Trabajamos con empresas que ya validaron su negocio y tienen un equipo, pero sienten que llegaron a un punto donde "vender más fuerte" ya no es suficiente. Es el momento de estructurar un motor de ventas escalable, medible y predecible.
+        </p>
+      </FI>
+      
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
+        {icp.map((v, i) => (
           <FI key={i} delay={0.06 + i * 0.05}>
-            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "20px 22px", display: "flex", gap: 16, alignItems: "flex-start", boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
-              <span style={{ fontSize: 28, flexShrink: 0, marginTop: 2 }}>{v.i}</span>
-              <div>
-                <h3 style={{ fontFamily: F.b, fontSize: 16, fontWeight: 600, color: C.w, margin: "0 0 4px" }}>{v.n}</h3>
-                <p style={{ fontFamily: F.b, fontSize: 12, color: C.m, margin: 0 }}>{v.e}</p>
-              </div>
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `4px solid ${C.blue}`, borderRadius: 12, padding: "30px 26px", height: "100%", boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
+              <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>{v.i}</span>
+              <h3 style={{ fontFamily: F.b, fontSize: 18, fontWeight: 700, color: C.w, margin: "0 0 10px", lineHeight: 1.3 }}>{v.n}</h3>
+              <p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: 0, lineHeight: 1.6, fontWeight: 400 }}>{v.e}</p>
             </div>
           </FI>
         ))}
