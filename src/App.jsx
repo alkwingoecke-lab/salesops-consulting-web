@@ -540,18 +540,7 @@ function CTA() {
         </p>
         <p style={{ fontFamily: F.b, fontSize: 12, color: C.m, margin: "0 0 36px" }}>Sin compromiso. Sin presión. Sin letra chica.</p>
         <a href="https://webforms.pipedrive.com/f/5VQRZL0MsGJQiok9MG29Iz5dQy7aUyM1lHSPnRiSTEamMlDrYtjcCI9yLJJIKTWpb5" target="_blank" rel="noopener noreferrer" style={{ fontFamily: F.b, fontSize: 15, fontWeight: 600, color: "#fff", background: C.blue, padding: "16px 44px", borderRadius: 8, textDecoration: "none", display: "inline-block", boxShadow: `0 4px 24px ${C.blueGlow}` }}>Agendar una conversación</a>
-        <div style={{ marginTop: 44, display: "flex", justifyContent: "center", gap: 36, alignItems: "flex-start", flexWrap: "wrap" }}>
-          {[["Correo", "contacto@salesopsconsulting.cl"], ["Sitio web", "salesopsconsulting.cl"]].map(([l, v], i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <p style={{ fontFamily: F.b, fontSize: 10, color: C.m, margin: "0 0 3px", textTransform: "uppercase", letterSpacing: "0.12em" }}>{l}</p>
-              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, margin: 0 }}>{v}</p>
-            </div>
-          ))}
-          <div style={{ textAlign: "center" }}>
-            <p style={{ fontFamily: F.b, fontSize: 10, color: C.m, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.12em" }}>Síguenos</p>
-            <SocialLinks size={18} gap={14} color={C.m} />
-          </div>
-        </div>
+       
       </div></FI>
     </section>
   );
@@ -559,11 +548,16 @@ function CTA() {
 
 /* ── Footer ── */
 function Footer() {
+  // 1. PEGA AQUÍ TUS ENLACES REALES ENTRE LAS COMILLAS:
+  const linkedinUrl = "TU_ENLACE_DE_LINKEDIN_AQUI"; 
+  const instagramUrl = "TU_ENLACE_DE_INSTAGRAM_AQUI";
+  const facebookUrl = "TU_ENLACE_DE_FACEBOOK_AQUI";
+
   return (
-    <footer style={{ background: C.bg, paddingTop: 80, paddingBottom: 24, borderTop: `1px solid ${C.border}` }}>
+    <footer style={{ background: C.bg, paddingTop: 80, paddingBottom: 40, borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px" }}>
         
-        {/* BLOQUE SUPERIOR: Solo Correo y Redes Sociales centrados */}
+        {/* BLOQUE SUPERIOR: Correo y Redes Sociales grandes y centrados */}
         <div style={{ display: "flex", justifyContent: "center", gap: 80, flexWrap: "wrap", marginBottom: 60, textAlign: "center" }}>
           
           {/* CORREO */}
@@ -574,22 +568,21 @@ function Footer() {
             </a>
           </div>
 
-          {/* SÍGUENOS - Íconos gigantes (size 32) */}
+          {/* SÍGUENOS - Íconos grandes e interactivos */}
           <div>
             <p style={{ fontFamily: F.b, fontSize: 12, fontWeight: 700, color: C.m, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>Síguenos</p>
             <div style={{ display: "flex", gap: 24, justifyContent: "center" }}>
-              <a href="#" style={{ color: C.g, transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.color = C.blue; e.target.style.transform = "scale(1.1)"; }} onMouseLeave={e => { e.target.style.color = C.g; e.target.style.transform = "scale(1)"; }}><Linkedin size={32} /></a>
-              <a href="#" style={{ color: C.g, transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.color = C.blue; e.target.style.transform = "scale(1.1)"; }} onMouseLeave={e => { e.target.style.color = C.g; e.target.style.transform = "scale(1)"; }}><Instagram size={32} /></a>
-              <a href="#" style={{ color: C.g, transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.color = C.blue; e.target.style.transform = "scale(1.1)"; }} onMouseLeave={e => { e.target.style.color = C.g; e.target.style.transform = "scale(1)"; }}><Facebook size={32} /></a>
+              <a href={linkedinUrl} target="_blank" rel="noreferrer" style={{ color: C.g, transition: "all 0.2s", display: "inline-block" }} onMouseEnter={e => { e.target.style.color = C.blue; e.target.style.transform = "scale(1.1)"; }} onMouseLeave={e => { e.target.style.color = C.g; e.target.style.transform = "scale(1)"; }}><Linkedin size={32} /></a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer" style={{ color: C.g, transition: "all 0.2s", display: "inline-block" }} onMouseEnter={e => { e.target.style.color = C.blue; e.target.style.transform = "scale(1.1)"; }} onMouseLeave={e => { e.target.style.color = C.g; e.target.style.transform = "scale(1)"; }}><Instagram size={32} /></a>
+              <a href={facebookUrl} target="_blank" rel="noreferrer" style={{ color: C.g, transition: "all 0.2s", display: "inline-block" }} onMouseEnter={e => { e.target.style.color = C.blue; e.target.style.transform = "scale(1.1)"; }} onMouseLeave={e => { e.target.style.color = C.g; e.target.style.transform = "scale(1)"; }}><Facebook size={32} /></a>
             </div>
           </div>
 
         </div>
 
-        {/* LÍNEA DIVISORIA Y COPYRIGHT INFERIOR */}
-        <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+        {/* LÍNEA DIVISORIA Y COPYRIGHT INFERIOR (SIN ÍCONOS REPETIDOS) */}
+        <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 24, textAlign: "center" }}>
           <p style={{ fontFamily: F.b, fontSize: 13, color: C.m, margin: 0 }}>© 2026 SalesOps Consulting SpA · Santiago, Chile</p>
-          
         </div>
 
       </div>
