@@ -8,21 +8,21 @@ const _f = (() => {
 })();
 const F = { d: "'Instrument Serif', Georgia, serif", b: "'Outfit', system-ui, sans-serif" };
 
-/* ── Light Theme Brand Colors ── */
+/* ── Light Theme Brand Colors (OSCURECIDOS PARA LEGIBILIDAD) ── */
 const C = {
   bg: "#ffffff", bg2: "#f8fafc", bg3: "#f1f5f9",
   card: "#f8fafc", cardHover: "#f1f5f9",
   border: "#e2e8f0", borderDark: "#cbd5e1",
   blue: "#2d3f8f", blueLight: "#4361c2", blueBright: "#3b5bdb",
   blueSoft: "rgba(45,63,143,0.06)", blueGlow: "rgba(45,63,143,0.15)",
-  navy: "#0c1121",
+  navy: "#020617",  /* Negro mucho más profundo */
   red: "#dc3545", redSoft: "rgba(220,53,69,0.05)", redBorder: "rgba(220,53,69,0.12)",
   amber: "#b8860b", amberSoft: "rgba(184,134,11,0.06)",
   green: "#017737", greenSoft: "rgba(1,119,55,0.05)", greenBorder: "rgba(1,119,55,0.12)",
-  w: "#0f172a",     /* primary text - dark */
-  g: "#334155",     /* secondary text */
-  m: "#64748b",     /* muted text */
-  d: "#cbd5e1",     /* very muted */
+  w: "#0f172a",     /* Texto primario: Gris súper oscuro casi negro */
+  g: "#334155",     /* Texto secundario: Gris sólido, adiós al gris claro */
+  m: "#64748b",     /* Texto terciario: Gris medio visible */
+  d: "#cbd5e1",
 };
 
 /* ── Hooks ── */
@@ -189,6 +189,7 @@ function Problema() {
 }
 
 /* ── Valor ── */
+/* ── Valor ── */
 function Valor() {
   const L = ["No sé cuánto vamos a cerrar este mes.", "Los vendedores pierden medio día en tareas administrativas.", "Si se va alguien clave, el negocio sufre.", "Yo sigo cerrando los negocios importantes."];
   const R = ["La proyección del trimestre tiene menos de 15% de desviación.", "Cada vendedor recuperó 8 horas semanales para dedicar a vender.", "Un vendedor nuevo opera al 80% en un mes, gracias al sistema documentado.", "Mi equipo cierra negocios sin que yo esté presente."];
@@ -202,33 +203,32 @@ function Valor() {
         </h2>
       </div></FI>
       
-      {/* GRID DE COMPARACIÓN */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         <FI delay={0.1}><div>
-          <p style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: C.red, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 16 }}>Sin sistema</p>
+          <p style={{ fontFamily: F.b, fontSize: 13, fontWeight: 700, color: C.red, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 16 }}>Sin sistema</p>
           {L.map((t, i) => (
-            <div key={i} style={{ padding: "16px 20px", borderRadius: 10, marginBottom: 12, background: C.redSoft, borderLeft: "4px solid rgba(220,53,69,0.3)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-              {/* Texto más oscuro (C.w), tamaño 15 y peso 400 */}
-              <p style={{ fontFamily: F.b, fontSize: 15, color: C.w, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>"{t}"</p>
+            <div key={i} style={{ padding: "18px 22px", borderRadius: 10, marginBottom: 12, background: C.redSoft, borderLeft: "4px solid rgba(220,53,69,0.4)", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+              {/* TAMAÑO 16px, COLOR NAVY (NEGRO), PESO 500 */}
+              <p style={{ fontFamily: F.b, fontSize: 16, color: C.navy, margin: 0, lineHeight: 1.5, fontWeight: 500 }}>"{t}"</p>
             </div>
           ))}
         </div></FI>
         
         <FI delay={0.2}><div>
-          <p style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: C.blue, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 16 }}>Con sistema</p>
+          <p style={{ fontFamily: F.b, fontSize: 13, fontWeight: 700, color: C.blue, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 16 }}>Con sistema</p>
           {R.map((t, i) => (
-            <div key={i} style={{ padding: "16px 20px", borderRadius: 10, marginBottom: 12, background: C.blueSoft, borderLeft: "4px solid rgba(45,63,143,0.3)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-              {/* Texto más oscuro (C.w), tamaño 15 y peso 500 para resaltar lo positivo */}
-              <p style={{ fontFamily: F.b, fontSize: 15, color: C.w, margin: 0, lineHeight: 1.5, fontWeight: 500 }}>"{t}"</p>
+            <div key={i} style={{ padding: "18px 22px", borderRadius: 10, marginBottom: 12, background: C.blueSoft, borderLeft: "4px solid rgba(45,63,143,0.4)", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
+              {/* TAMAÑO 16px, COLOR NAVY (NEGRO), PESO 600 PARA DESTARCAR LO POSITIVO */}
+              <p style={{ fontFamily: F.b, fontSize: 16, color: C.navy, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>"{t}"</p>
             </div>
           ))}
         </div></FI>
       </div>
       
-      {/* NUEVA FRASE DE CIERRE FUERA DEL GRID */}
       <FI delay={0.3}>
-        <div style={{ marginTop: 40, background: C.bg, border: `1px solid ${C.border}`, borderTop: `5px solid ${C.blue}`, borderRadius: 12, padding: "32px", textAlign: "center", boxShadow: "0 8px 24px rgba(0,0,0,0.06)" }}>
-          <p style={{ fontFamily: F.b, fontSize: 18, color: C.w, margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
+        <div style={{ marginTop: 40, background: C.bg, border: `1px solid ${C.border}`, borderTop: `6px solid ${C.blue}`, borderRadius: 12, padding: "32px", textAlign: "center", boxShadow: "0 10px 30px rgba(0,0,0,0.08)" }}>
+          {/* CIERRE GIGANTE: TAMAÑO 19px, COLOR NAVY (NEGRO), PESO 600 */}
+          <p style={{ fontFamily: F.b, fontSize: 19, color: C.navy, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>
             "Con esta transición dejarás de quemar plata en esfuerzos comerciales desarticulados y construyes un motor de ingresos predecible, sostenido por una estructura comercial sólida y rentable."
           </p>
         </div>
