@@ -291,27 +291,31 @@ function Eval() {
   const [statusEnvio, setStatusEnvio] = useState("idle");
   const score = ans.reduce((s, a) => s + (3 - a) * 5, 0);
   const mx = 75, pct = Math.round((score / mx) * 100);
-  const level = pct >= 75 ? "Maduro" : pct >= 55 ? "Funcional" : pct >= 35 ? "En desarrollo" : "Requiere atención urgente";
+  const level = pct >= 75 ? "Maduro" : pct >= 55 ? "Mejorable" : pct >= 35 ? "Estado Crítico" : "Requiere atención urgente";
   const lc = pct >= 75 ? "#16a34a" : pct >= 55 ? C.blue : pct >= 35 ? "#b8860b" : C.red;
   const answer = (v) => { const na = [...ans, v]; setAns(na); na.length >= QS.length ? setStep(QS.length) : setStep(step + 1); };
   const enviarDiagnostico = async () => {
     if (!email) return;
     setStatusEnvio("enviando");
     try {
-      const res = await fetch("https://formsubmit.co/ajax/contacto@salesopsconsulting.cl", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          _subject: "🔥 Nuevo Lead - Autoevaluación Web",
+          // ¡ATENCIÓN! Reemplaza "TU_ACCESS_KEY_AQUI" por el código que te llegó al correo
+          access_key: "811360",
+          subject: "🔥 Nuevo Lead - Autoevaluación Web",
           Correo_Cliente: email,
           Puntaje_Obtenido: `${pct}/100`,
-          Nivel_Madurez: level
+          Nivel_Madurez: level,
+          from_name: "SalesOps Evaluador"
         })
       });
-      if (res.ok) setStatusEnvio("exito");
+      const data = await res.json();
+      if (data.success) setStatusEnvio("exito");
       else setStatusEnvio("error");
     } catch (error) {
       setStatusEnvio("error");
