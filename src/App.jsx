@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Linkedin, Instagram, Facebook } from "lucide-react";
 
 const _f = (() => {
   const l = document.createElement("link");
@@ -589,12 +590,6 @@ function Footer() {
         <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
           <p style={{ fontFamily: F.b, fontSize: 13, color: C.m, margin: 0 }}>© 2026 SalesOps Consulting SpA · Santiago, Chile</p>
           
-          {/* Íconos inferiores también más grandes (size 24) */}
-          <div style={{ display: "flex", gap: 18 }}>
-            <a href="#" style={{ color: C.m, transition: "color 0.2s" }} onMouseEnter={e => e.target.style.color = C.blue} onMouseLeave={e => e.target.style.color = C.m}><Linkedin size={24} /></a>
-            <a href="#" style={{ color: C.m, transition: "color 0.2s" }} onMouseEnter={e => e.target.style.color = C.blue} onMouseLeave={e => e.target.style.color = C.m}><Instagram size={24} /></a>
-            <a href="#" style={{ color: C.m, transition: "color 0.2s" }} onMouseEnter={e => e.target.style.color = C.blue} onMouseLeave={e => e.target.style.color = C.m}><Facebook size={24} /></a>
-          </div>
         </div>
 
       </div>
