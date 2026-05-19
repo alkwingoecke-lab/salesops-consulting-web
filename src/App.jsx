@@ -79,20 +79,24 @@ function SocialLinks({ size = 18, gap = 16, color = C.m }) {
 function Nav() {
   const [s, setS] = useState(false);
   useEffect(() => { const h = () => setS(window.scrollY > 50); window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []);
-  const links = [["El problema", "#problema"], ["Nuestro método", "#metodo"], ["Autoevaluación", "#eval"], ["A quién ayudamos", "#quien"], ["Hablemos", "#contacto"]];
+  
+  // 1. CAMBIAMOS "Hablemos" por "Tecnología" y lo apuntamos a "#tecnologia"
+  const links = [["El problema", "#problema"], ["Nuestro método", "#metodo"], ["Autoevaluación", "#eval"], ["A quién ayudamos", "#quien"], ["Tecnología", "#tecnologia"]];
+  
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: s ? "rgba(255,255,255,0.95)" : "transparent", backdropFilter: s ? "blur(16px)" : "none", borderBottom: `1px solid ${s ? C.border : "transparent"}`, transition: "all 0.35s" }}>
-      <div style={{ maxWidth: 1120, margin: "0 auto", padding: "14px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      {/* 2. AMPLIAMOS EL ESPACIO: Cambiamos maxWidth a 1300 (antes 1120) y dimos más padding */}
+      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "16px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         
-        {/* LOGO MEJORADO: Más grande y con mejor contraste */}
-        <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <Logo size={28} />
-          <span style={{ fontFamily: F.b, fontWeight: 800, fontSize: 18, color: C.w, letterSpacing: "0.04em" }}>SALESOPS</span>
-          <span style={{ fontFamily: F.b, fontWeight: 500, fontSize: 12, color: C.g, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
+        <a href="#" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
+          {/* 3. LOGO MÁS GRANDE (size 32) y textos un punto más grandes */}
+          <Logo size={32} />
+          <span style={{ fontFamily: F.b, fontWeight: 800, fontSize: 19, color: C.w, letterSpacing: "0.04em" }}>SALESOPS</span>
+          <span style={{ fontFamily: F.b, fontWeight: 500, fontSize: 13, color: C.g, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
         </a>
         
-        {/* LINKS MEJORADOS: Tamaño 15px, peso 500 (más gorditos) y color oscuro */}
-        <div className="nav-links" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+        {/* 4. MÁS ESPACIO ENTRE PESTAÑAS: Cambiamos el gap a 40 (antes 28) */}
+        <div className="nav-links" style={{ display: "flex", gap: 40, alignItems: "center" }}>
           {links.map(([l, h]) => (
             <a key={h} href={h} style={{ fontFamily: F.b, fontSize: 15, fontWeight: 500, color: C.w, textDecoration: "none", transition: "color 0.2s" }}
                onMouseEnter={e => e.target.style.color = C.blue}
@@ -100,8 +104,8 @@ function Nav() {
               {l}
             </a>
           ))}
-          {/* BOTÓN MÁS SÓLIDO */}
-          <a href="#contacto" style={{ fontFamily: F.b, fontSize: 14, fontWeight: 600, color: "#fff", background: C.blue, padding: "10px 24px", borderRadius: 6, textDecoration: "none" }}>Conversemos</a>
+          {/* Botón un poco más espacioso */}
+          <a href="#contacto" style={{ fontFamily: F.b, fontSize: 14, fontWeight: 600, color: "#fff", background: C.blue, padding: "12px 28px", borderRadius: 6, textDecoration: "none" }}>Conversemos</a>
         </div>
       </div>
     </nav>
@@ -155,32 +159,29 @@ function Problema() {
           Tu empresa vende.<br /><span style={{ color: C.m }}>Pero no sabes cuánto va a vender mañana.</span>
         </h2>
       </FI>
-      {/* Párrafo principal más legible (peso 400, texto ligeramente más grande) */}
       <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 16, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 400, lineHeight: 1.65 }}>
         Estas son frases reales de dueños de empresas B2B. Si alguna te suena familiar, es probable que tu proceso de ventas necesite más que esfuerzo individual — necesite estructura.
       </p></FI>
       
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+      {/* AQUÍ ESTÁ LA SOLUCIÓN: Cambiamos a "1fr 1fr" para forzar 2 columnas exactas */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
         {pains.map((p, i) => (
           <FI key={i} delay={0.06 + i * 0.05}>
-            {/* Tarjetas con sombra sutil y más acolchadas */}
             <div style={{ background: C.redSoft, border: `1px solid ${C.redBorder}`, borderRadius: 12, padding: "26px 24px", height: "100%", boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
-              {/* Frase en itálica: mayor tamaño (19) y un poco más de peso (500) para la fuente Serif */}
               <p style={{ fontFamily: F.d, fontSize: 19, color: C.w, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 12px", fontWeight: 500 }}>"{p.q}"</p>
-              {/* Explicación: color oscuro (C.w) y mayor tamaño (14) */}
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.w, margin: 0, fontWeight: 400, lineHeight: 1.5 }}>{p.s}</p>
             </div>
           </FI>
         ))}
       </div>
       
-      <FI delay={0.35}>
-        <div style={{ marginTop: 36, padding: "24px 28px", borderRadius: 12, background: C.bg2, border: `1px solid ${C.border}`, boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-          {/* Texto de cierre de sección más sólido (peso 400 y color oscuro) */}
-          <p style={{ fontFamily: F.b, fontSize: 15, color: C.w, margin: 0, lineHeight: 1.65, fontWeight: 400 }}>
-            <strong style={{ color: C.w, fontWeight: 700 }}>La respuesta instintiva del dueño: </strong>
-            contratar un gerente de ventas. Pero el costo es alto, el proceso de selección es largo, y la probabilidad de que no funcione es cercana al 50%.
-            <strong style={{ color: C.w, fontWeight: 700 }}> Hay un camino intermedio antes de dar ese salto.</strong>
+     <<FI delay={0.35}>
+        <div style={{ marginTop: 36, padding: "30px 34px", borderRadius: 12, background: C.bg2, border: `1px solid ${C.border}`, boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+          {/* Aumentamos el tamaño a 18 y el interlineado a 1.7 para que se lea perfecto */}
+          <p style={{ fontFamily: F.b, fontSize: 18, color: C.w, margin: 0, lineHeight: 1.7, fontWeight: 400 }}>
+            <strong style={{ color: C.w, fontWeight: 700 }}>Ves bajas ventas, el desorden de tu equipo y la falta de cierres, pero esos son solo los síntomas. </strong>
+            Las verdaderas causas de tu estancamiento son invisibles a simple vista: procesos rotos y falta de control operativo. 
+            <strong style={{ color: C.w, fontWeight: 700 }}> Antes de exigir más ventas, necesitas reparar la estructura.</strong>
           </p>
         </div>
       </FI>
@@ -433,7 +434,7 @@ function Quien() {
 /* ── Pipedrive ── */
 function PipeSec() {
   return (
-    <section style={{ padding: "80px 24px", maxWidth: 1120, margin: "0 auto" }}>
+    <section id="tecnologia" style={{ padding: "80px 24px", maxWidth: 1120, margin: "0 auto" }}>
       <FI>
         <div style={{ background: C.greenSoft, border: `1px solid ${C.greenBorder}`, borderRadius: 14, padding: "48px 36px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 40, flexWrap: "wrap", alignItems: "flex-start" }}>
