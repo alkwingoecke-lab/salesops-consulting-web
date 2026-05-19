@@ -175,7 +175,7 @@ function Problema() {
         ))}
       </div>
       
-     <<FI delay={0.35}>
+     <FI delay={0.35}>
         <div style={{ marginTop: 36, padding: "30px 34px", borderRadius: 12, background: C.bg2, border: `1px solid ${C.border}`, boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
           {/* Aumentamos el tamaño a 18 y el interlineado a 1.7 para que se lea perfecto */}
           <p style={{ fontFamily: F.b, fontSize: 18, color: C.w, margin: 0, lineHeight: 1.7, fontWeight: 400 }}>
