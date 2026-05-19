@@ -200,7 +200,7 @@ function Valor() {
 function Metodo() {
   const ps = [
     { l: "T", t: "Análisis", sub: "Diagnosticamos profundamente antes de operar", desc: "Revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un informe completo, con la descripción por área, con puntos de dolor, puntuación de 0 a 100 y las acciones necesarias para optimizar tu operación."},
-    { l: "A", t: "Arquitectura", sub: "Construimos y Optimizamos tu sistema operativo de ventas", desc: "Ordenamos tu gestor de clientes (CRM) para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y te ayudamos a definir la compensación de tu equipo.", foot: "Seis a ocho semanas. CCRM Principal: Pipedrive, pero nos adaptamos a tu stack.", c: "#6366f1" },
+    { l: "A", t: "Arquitectura", sub: "Construimos y Optimizamos tu sistema operativo de ventas", desc: "Ordenamos tu CRM para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y te ayudamos a definir la compensación de tu equipo.", foot: "Seis a ocho semanas. CCRM Principal: Pipedrive, pero nos adaptamos a tu stack.", c: "#6366f1" },
     { l: "G", t: "Gobernanza", sub: "Lideramos la ejecución del día a día", desc: "Te ofrecemos un Líder Comercial Externo a tiempo parcial que lidera al equipo, acompaña a cada vendedor y se asegura de que cada proceso del sistema funcione y se cumplan las proyecciones. A una fracción del costo de una contratación directa.", foot: "Te acompañamos y preparamos el camino para que un día no nos necesites", c: C.amber },
   ];
   return (
@@ -229,9 +229,9 @@ function Metodo() {
 
 /* ── Autoevaluación ── */
 const QS = [
-  { q: "¿Puedes anticipar con precisión cuánto va a cerrar tu equipo este mes?", a: ["Sí, con información actualizada del gestor de clientes", "Tengo una idea aproximada", "Recién lo sé cuando termina el mes", "No tengo forma de saberlo"] },
+  { q: "¿Puedes anticipar con precisión cuánto va a cerrar tu equipo este mes?", a: ["Sí, con información actualizada del CRM", "Tengo una idea aproximada", "Recién lo sé cuando termina el mes", "No tengo forma de saberlo"] },
   { q: "¿Tu equipo comercial sigue un proceso de venta documentado y compartido?", a: ["Sí, con guiones y pasos definidos", "Hay lineamientos generales pero no se siguen siempre", "Cada vendedor tiene su propio estilo", "No existe nada formal"] },
-  { q: "¿Cómo se usa el gestor de clientes (la herramienta donde registran oportunidades)?", a: ["Es nuestra herramienta central de decisión", "Existe pero los datos están incompletos", "Lo tienen pero casi nadie lo usa bien", "No tenemos o usamos planillas sueltas"] },
+  { q: "¿Cómo se usa el CRM (la herramienta donde registran oportunidades)?", a: ["Es nuestra herramienta central de decisión", "Existe pero los datos están incompletos", "Lo tienen pero casi nadie lo usa bien", "No tenemos o usamos planillas sueltas"] },
   { q: "¿Qué porcentaje de tu tiempo como dueño se va en cerrar ventas personalmente?", a: ["Menos del 15%", "Entre 15% y 30%", "Entre 30% y 50%", "Más de la mitad de mi tiempo"] },
   { q: "Si tu mejor vendedor se va mañana, ¿cuánto tarda su reemplazo en alcanzar buen rendimiento?", a: ["Menos de un mes (hay sistema documentado)", "Uno a tres meses", "Tres a seis meses", "No sé, nunca lo hemos medido"] },
 ];
@@ -397,10 +397,10 @@ function PipeSec() {
                 <span style={{ fontFamily: F.b, fontSize: 32, fontWeight: 700, color: C.green, letterSpacing: "-0.02em" }}>pipedrive</span>
               </div>
               <h3 style={{ fontFamily: F.d, fontSize: 26, color: C.w, margin: "0 0 16px", fontWeight: 400 }}>
-                El gestor de clientes que tu equipo realmente va a usar.
+                El CRM que tu equipo realmente va a usar.
               </h3>
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 400 }}>
-                La mayoría de las empresas que llegan a nosotros ya pagaron por un gestor de clientes que nadie usa. El problema nunca fue la herramienta — fue que nadie la configuró como sistema de decisión.
+                La mayoría de las empresas que llegan a nosotros ya pagaron por un CRM que nadie usa. El problema nunca fue la herramienta — fue que nadie la configuró como sistema de decisión.
               </p>
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 400 }}>
                 Elegimos Pipedrive porque es la plataforma que mejor se adapta a equipos comerciales de empresas medianas: es visual, intuitiva, y tiene una curva de adopción que permite que tu equipo esté operando en semanas, no en meses.
@@ -447,7 +447,7 @@ function Friction() {
 /* ── Blog ── */
 function Blog() {
   const posts = [
-    { tag: "Diagnóstico", title: "Por qué el gestor de clientes de tu empresa es un archivo muerto (y cómo cambiarlo)", desc: "El problema no es la herramienta. Es que nadie la configuró como sistema de decisión." },
+    { tag: "Diagnóstico", title: "Por qué el CRM de tu empresa es un archivo muerto (y cómo cambiarlo)", desc: "El problema no es la herramienta. Es que nadie la configuró como sistema de decisión." },
     { tag: "Fundadores", title: "El costo oculto de que el dueño siga cerrando los negocios importantes", desc: "Tu hora vale mucho más en estrategia que en ventas. Los números que lo demuestran." },
     { tag: "Equipos", title: "Cómo ordenar un equipo comercial sin generar una crisis interna", desc: "La estructura no es el enemigo del vendedor bueno. Es su mejor aliado." },
   ];
