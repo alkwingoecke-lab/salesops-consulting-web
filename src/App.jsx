@@ -83,14 +83,25 @@ function Nav() {
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: s ? "rgba(255,255,255,0.95)" : "transparent", backdropFilter: s ? "blur(16px)" : "none", borderBottom: `1px solid ${s ? C.border : "transparent"}`, transition: "all 0.35s" }}>
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "14px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        
+        {/* LOGO MEJORADO: Más grande y con mejor contraste */}
         <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <Logo size={22} />
-          <span style={{ fontFamily: F.b, fontWeight: 800, fontSize: 15, color: C.w, letterSpacing: "0.04em" }}>SALESOPS</span>
-          <span style={{ fontFamily: F.b, fontWeight: 400, fontSize: 11, color: C.m, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
+          <Logo size={28} />
+          <span style={{ fontFamily: F.b, fontWeight: 800, fontSize: 18, color: C.w, letterSpacing: "0.04em" }}>SALESOPS</span>
+          <span style={{ fontFamily: F.b, fontWeight: 500, fontSize: 12, color: C.g, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
         </a>
-        <div className="nav-links" style={{ display: "flex", gap: 26, alignItems: "center" }}>
-          {links.map(([l, h]) => <a key={h} href={h} style={{ fontFamily: F.b, fontSize: 13, color: C.g, textDecoration: "none" }}>{l}</a>)}
-          <a href="#contacto" style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: "#fff", background: C.blue, padding: "9px 22px", borderRadius: 6, textDecoration: "none" }}>Conversemos</a>
+        
+        {/* LINKS MEJORADOS: Tamaño 15px, peso 500 (más gorditos) y color oscuro */}
+        <div className="nav-links" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+          {links.map(([l, h]) => (
+            <a key={h} href={h} style={{ fontFamily: F.b, fontSize: 15, fontWeight: 500, color: C.w, textDecoration: "none", transition: "color 0.2s" }}
+               onMouseEnter={e => e.target.style.color = C.blue}
+               onMouseLeave={e => e.target.style.color = C.w}>
+              {l}
+            </a>
+          ))}
+          {/* BOTÓN MÁS SÓLIDO */}
+          <a href="#contacto" style={{ fontFamily: F.b, fontSize: 14, fontWeight: 600, color: "#fff", background: C.blue, padding: "10px 24px", borderRadius: 6, textDecoration: "none" }}>Conversemos</a>
         </div>
       </div>
     </nav>
@@ -144,25 +155,32 @@ function Problema() {
           Tu empresa vende.<br /><span style={{ color: C.m }}>Pero no sabes cuánto va a vender mañana.</span>
         </h2>
       </FI>
-      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 400, lineHeight: 1.65 }}>
+      {/* Párrafo principal más legible (peso 400, texto ligeramente más grande) */}
+      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 16, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 400, lineHeight: 1.65 }}>
         Estas son frases reales de dueños de empresas B2B. Si alguna te suena familiar, es probable que tu proceso de ventas necesite más que esfuerzo individual — necesite estructura.
       </p></FI>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
+      
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
         {pains.map((p, i) => (
           <FI key={i} delay={0.06 + i * 0.05}>
-            <div style={{ background: C.redSoft, border: `1px solid ${C.redBorder}`, borderRadius: 10, padding: "24px 22px", height: "100%" }}>
-              <p style={{ fontFamily: F.d, fontSize: 17, color: C.w, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 10px" }}>"{p.q}"</p>
-              <p style={{ fontFamily: F.b, fontSize: 12, color: C.g, margin: 0 }}>{p.s}</p>
+            {/* Tarjetas con sombra sutil y más acolchadas */}
+            <div style={{ background: C.redSoft, border: `1px solid ${C.redBorder}`, borderRadius: 12, padding: "26px 24px", height: "100%", boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
+              {/* Frase en itálica: mayor tamaño (19) y un poco más de peso (500) para la fuente Serif */}
+              <p style={{ fontFamily: F.d, fontSize: 19, color: C.w, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 12px", fontWeight: 500 }}>"{p.q}"</p>
+              {/* Explicación: color oscuro (C.w) y mayor tamaño (14) */}
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.w, margin: 0, fontWeight: 400, lineHeight: 1.5 }}>{p.s}</p>
             </div>
           </FI>
         ))}
       </div>
+      
       <FI delay={0.35}>
-        <div style={{ marginTop: 32, padding: "20px 24px", borderRadius: 10, background: C.bg2, border: `1px solid ${C.border}` }}>
-          <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, margin: 0, lineHeight: 1.65 }}>
-            <strong style={{ color: C.w }}>La respuesta instintiva del dueño: </strong>
+        <div style={{ marginTop: 36, padding: "24px 28px", borderRadius: 12, background: C.bg2, border: `1px solid ${C.border}`, boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+          {/* Texto de cierre de sección más sólido (peso 400 y color oscuro) */}
+          <p style={{ fontFamily: F.b, fontSize: 15, color: C.w, margin: 0, lineHeight: 1.65, fontWeight: 400 }}>
+            <strong style={{ color: C.w, fontWeight: 700 }}>La respuesta instintiva del dueño: </strong>
             contratar un gerente de ventas. Pero el costo es alto, el proceso de selección es largo, y la probabilidad de que no funcione es cercana al 50%.
-            <strong style={{ color: C.w }}> Hay un camino intermedio antes de dar ese salto.</strong>
+            <strong style={{ color: C.w, fontWeight: 700 }}> Hay un camino intermedio antes de dar ese salto.</strong>
           </p>
         </div>
       </FI>
@@ -172,8 +190,9 @@ function Problema() {
 
 /* ── Valor ── */
 function Valor() {
-  const L = ["No sé cuánto vamos a cerrar este mes.", "Los vendedores pierden tiempo en tareas administrativas.", "Si se mi mejor vendedor, el negocio queda en riesgo.", "Yo sigo cerrando los negocios importantes."];
-  const R = ["La proyección del trimestre tiene menos de 15% de desviación.", "Cada vendedor recuperó 8 horas semanales para dedicar a vender.", "Un vendedor nuevo opera al 80% en un mes, gracias al sistema documentado.", "Mi equipo cierra negocios consistentemente y puedo dedicarle tiempo a la estrategia y el resto de la empresa."];
+  const L = ["No sé cuánto vamos a cerrar este mes.", "Los vendedores pierden medio día en tareas administrativas.", "Si se va alguien clave, el negocio sufre.", "Yo sigo cerrando los negocios importantes."];
+  const R = ["La proyección del trimestre tiene menos de 15% de desviación.", "Cada vendedor recuperó 8 horas semanales para dedicar a vender.", "Un vendedor nuevo opera al 80% en un mes, gracias al sistema documentado.", "Mi equipo cierra negocios sin que yo esté presente."];
+  
   return (
     <section style={{ padding: "80px 24px", maxWidth: 1120, margin: "0 auto" }}>
       <FI><div style={{ textAlign: "center", marginBottom: 44 }}>
@@ -182,16 +201,39 @@ function Valor() {
           La diferencia entre depender de personas<br /><em style={{ color: C.blue }}>y confiar en un sistema.</em>
         </h2>
       </div></FI>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      
+      {/* GRID DE COMPARACIÓN */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         <FI delay={0.1}><div>
-          <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 14 }}>Sin sistema</p>
-          {L.map((t, i) => <div key={i} style={{ padding: "14px 18px", borderRadius: 8, marginBottom: 8, background: C.redSoft, borderLeft: "3px solid rgba(220,53,69,0.25)" }}><p style={{ fontFamily: F.b, fontSize: 14, color: C.g, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>"{t}"</p></div>)}
+          <p style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: C.red, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 16 }}>Sin sistema</p>
+          {L.map((t, i) => (
+            <div key={i} style={{ padding: "16px 20px", borderRadius: 10, marginBottom: 12, background: C.redSoft, borderLeft: "4px solid rgba(220,53,69,0.3)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+              {/* Texto más oscuro (C.w), tamaño 15 y peso 400 */}
+              <p style={{ fontFamily: F.b, fontSize: 15, color: C.w, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>"{t}"</p>
+            </div>
+          ))}
         </div></FI>
+        
         <FI delay={0.2}><div>
-          <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.blue, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 14 }}>Con sistema</p>
-          {R.map((t, i) => <div key={i} style={{ padding: "14px 18px", borderRadius: 8, marginBottom: 8, background: C.blueSoft, borderLeft: "3px solid rgba(45,63,143,0.25)" }}><p style={{ fontFamily: F.b, fontSize: 14, color: C.w, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>"{t}"</p></div>)}
+          <p style={{ fontFamily: F.b, fontSize: 12, fontWeight: 600, color: C.blue, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 16 }}>Con sistema</p>
+          {R.map((t, i) => (
+            <div key={i} style={{ padding: "16px 20px", borderRadius: 10, marginBottom: 12, background: C.blueSoft, borderLeft: "4px solid rgba(45,63,143,0.3)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
+              {/* Texto más oscuro (C.w), tamaño 15 y peso 500 para resaltar lo positivo */}
+              <p style={{ fontFamily: F.b, fontSize: 15, color: C.w, margin: 0, lineHeight: 1.5, fontWeight: 500 }}>"{t}"</p>
+            </div>
+          ))}
         </div></FI>
       </div>
+      
+      {/* NUEVA FRASE DE CIERRE FUERA DEL GRID */}
+      <FI delay={0.3}>
+        <div style={{ marginTop: 40, background: C.bg, border: `1px solid ${C.border}`, borderTop: `5px solid ${C.blue}`, borderRadius: 12, padding: "32px", textAlign: "center", boxShadow: "0 8px 24px rgba(0,0,0,0.06)" }}>
+          <p style={{ fontFamily: F.b, fontSize: 18, color: C.w, margin: 0, lineHeight: 1.6, fontWeight: 500 }}>
+            "Con esta transición dejarás de quemar plata en esfuerzos comerciales desarticulados y construyes un motor de ingresos predecible, sostenido por una estructura comercial sólida y rentable."
+          </p>
+        </div>
+      </FI>
+      
     </section>
   );
 }
@@ -199,8 +241,8 @@ function Valor() {
 /* ── Método TAG ── */
 function Metodo() {
   const ps = [
-    { l: "T", t: "Análisis", sub: "Diagnosticamos profundamente antes de operar", desc: "Revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un informe completo, con la descripción por área, con puntos de dolor, puntuación de 0 a 100 y las acciones necesarias para optimizar tu operación."},
-    { l: "A", t: "Arquitectura", sub: "Construimos y Optimizamos tu sistema operativo de ventas", desc: "Ordenamos tu CRM para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y te ayudamos a definir la compensación de tu equipo.", foot: "Seis a ocho semanas. CCRM Principal: Pipedrive, pero nos adaptamos a tu stack.", c: "#6366f1" },
+    { l: "T", t: "Análisis", sub: "Diagnosticamos profundamente antes de operar", desc: "Revisamos a fondo tres dimensiones: las personas del equipo, los procesos que siguen y las herramientas que usan. Entregamos un informe completo, con la descripción por área, con puntos de dolor, puntuación de 0 a 100 y las acciones necesarias para optimizar tu operación.", foot: " ", c: C.blue },
+    { l: "A", t: "Arquitectura", sub: "Construimos y Optimizamos tu sistema operativo de ventas", desc: "Ordenamos tu CRM para que sea una herramienta de decisión, no un archivo muerto. Documentamos guiones de venta reales, armamos tableros de proyección claros y te ayudamos a definir la compensación de tu equipo.", foot: "Seis a ocho semanas. CRM Principal: Pipedrive, pero nos adaptamos a tu stack.", c: "#6366f1" },
     { l: "G", t: "Gobernanza", sub: "Lideramos la ejecución del día a día", desc: "Te ofrecemos un Líder Comercial Externo a tiempo parcial que lidera al equipo, acompaña a cada vendedor y se asegura de que cada proceso del sistema funcione y se cumplan las proyecciones. A una fracción del costo de una contratación directa.", foot: "Te acompañamos y preparamos el camino para que un día no nos necesites", c: C.amber },
   ];
   return (
@@ -208,17 +250,21 @@ function Metodo() {
       <FI><div style={{ textAlign: "center", marginBottom: 48 }}>
         <Tag>Nuestro método</Tag>
         <h2 style={{ fontFamily: F.d, fontSize: "clamp(32px,5vw,50px)", color: C.w, margin: "18px 0 6px", fontWeight: 400 }}>Método TAG</h2>
-        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 400 }}>Tres etapas consecutivas. Cada una prepara el terreno para la siguiente.</p>
+        <p style={{ fontFamily: F.b, fontSize: 16, color: C.g, fontWeight: 400 }}>Tres etapas consecutivas. Cada una prepara el terreno para la siguiente.</p>
       </div></FI>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
         {ps.map((p, i) => (
           <FI key={i} delay={0.06 + i * 0.07}>
-            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `3px solid ${p.c}`, borderRadius: 10, padding: "28px 22px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-              <span style={{ fontFamily: F.d, fontSize: 48, color: p.c, lineHeight: 1, opacity: 0.6 }}>{p.l}</span>
-              <h3 style={{ fontFamily: F.b, fontSize: 20, fontWeight: 700, color: C.w, margin: "8px 0 3px" }}>{p.t}</h3>
-              <p style={{ fontFamily: F.b, fontSize: 13, color: p.c, margin: "0 0 14px", fontWeight: 500 }}>{p.sub}</p>
-              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.65, margin: "0 0 14px", fontWeight: 400, flex: 1 }}>{p.desc}</p>
-              <p style={{ fontFamily: F.b, fontSize: 11, color: C.m, margin: 0, fontStyle: "italic", borderTop: `1px solid ${C.border}`, paddingTop: 12 }}>{p.foot}</p>
+            {/* Sombras mejoradas y bordes más notorios */}
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `4px solid ${p.c}`, borderRadius: 12, padding: "32px 26px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 6px 16px rgba(0,0,0,0.06)" }}>
+              <span style={{ fontFamily: F.d, fontSize: 48, color: p.c, lineHeight: 1, opacity: 0.8 }}>{p.l}</span>
+              <h3 style={{ fontFamily: F.b, fontSize: 22, fontWeight: 700, color: C.w, margin: "12px 0 6px" }}>{p.t}</h3>
+              {/* Subtítulos más gruesos y oscuros */}
+              <p style={{ fontFamily: F.b, fontSize: 14, color: p.c, margin: "0 0 16px", fontWeight: 600 }}>{p.sub}</p>
+              {/* Texto principal en color negro (C.w) y peso 400 en vez de 300 */}
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.w, lineHeight: 1.65, margin: "0 0 16px", fontWeight: 400, flex: 1 }}>{p.desc}</p>
+              {/* Footer de tarjeta más oscuro */}
+              <p style={{ fontFamily: F.b, fontSize: 12, color: C.g, margin: 0, fontStyle: "italic", borderTop: `1px solid ${C.border}`, paddingTop: 14, fontWeight: 400 }}>{p.foot}</p>
             </div>
           </FI>
         ))}
