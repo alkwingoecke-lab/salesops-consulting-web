@@ -213,8 +213,7 @@ function Metodo() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
         {ps.map((p, i) => (
           <FI key={i} delay={0.06 + i * 0.07}>
-            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `3px solid ${p.c}`, borderRadius: 10, padding: "28px 22px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 3px rgb
-            a(0,0,0,0.04)" }}>
+            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderTop: `3px solid ${p.c}`, borderRadius: 10, padding: "28px 22px", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
               <span style={{ fontFamily: F.d, fontSize: 48, color: p.c, lineHeight: 1, opacity: 0.6 }}>{p.l}</span>
               <h3 style={{ fontFamily: F.b, fontSize: 20, fontWeight: 700, color: C.w, margin: "8px 0 3px" }}>{p.t}</h3>
               <p style={{ fontFamily: F.b, fontSize: 13, color: p.c, margin: "0 0 14px", fontWeight: 500 }}>{p.sub}</p>
