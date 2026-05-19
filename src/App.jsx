@@ -601,6 +601,7 @@ function Footer() {
     </footer>
   );
 }
+
 /* ── App ── */
 export default function SalesOpsWeb() {
   return (
