@@ -106,12 +106,12 @@ function Hero() {
         <FI><div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}><Logo size={38} /></div></FI>
         <FI delay={0.1}>
           <h1 style={{ fontFamily: F.d, fontSize: "clamp(40px,6vw,64px)", fontWeight: 400, color: C.w, lineHeight: 1.08, margin: "0 0 28px" }}>
-            De instinto comercial<br /><em style={{ color: C.blue }}>a sistema predecible.</em>
+            Del caos comercial<br /><em style={{ color: C.blue }}>a un sistema predecible, rentable y escalable.</em>
           </h1>
         </FI>
         <FI delay={0.2}>
           <p style={{ fontFamily: F.b, fontSize: 18, color: C.g, lineHeight: 1.7, margin: "0 auto 44px", fontWeight: 400, maxWidth: 580 }}>
-            Consultoría de ventas para empresas B2B que necesitan dejar de depender del dueño para cerrar negocios. Te ayudamos a sistematizar tus ventas para que tu equipo opere con orden, claridad y resultados que puedas anticipar.
+            Consultoría de ventas y tecnología para empresas B2B que buscan optimizar recursos e implementar procesos. Te ayudamos a sistematizar tus ventas para que tu equipo opere con orden, claridad y resultados que puedas anticipar y proyectar.
           </p>
         </FI>
         <FI delay={0.3}>
@@ -400,13 +400,13 @@ function PipeSec() {
                 El CRM que tu equipo realmente va a usar.
               </h3>
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 400 }}>
-                La mayoría de las empresas que llegan a nosotros ya pagaron por un CRM que nadie usa. El problema nunca fue la herramienta — fue que nadie la configuró como sistema de decisión.
+                La mayoría de las empresas que llegan a nosotros ya pagaron por un CRM que nadie usa. El problema nunca fue la herramienta, fue que nadie la configuró como sistema de decisión.
               </p>
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 400 }}>
                 Elegimos Pipedrive porque es la plataforma que mejor se adapta a equipos comerciales de empresas medianas: es visual, intuitiva, y tiene una curva de adopción que permite que tu equipo esté operando en semanas, no en meses.
               </p>
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.w, lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
-                No vendemos la herramienta. La configuramos para que funcione como el centro de operaciones de tu área comercial — donde tu equipo registra, donde tú decides, y donde las proyecciones se construyen con datos reales.
+                No vendemos la herramienta. La configuramos para que funcione como el centro de operaciones de tu área comercial, donde tu equipo registra, donde tú decides, y donde las proyecciones se construyen con datos reales.
               </p>
             </div>
             <div style={{ minWidth: 240 }}>
