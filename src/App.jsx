@@ -160,7 +160,7 @@ function Problema() {
         </h2>
       </FI>
       <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 16, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 400, lineHeight: 1.65 }}>
-        Estas son frases reales de dueños de empresas B2B. Si alguna te suena familiar, es probable que tu proceso de ventas necesite más que esfuerzo individual — necesite estructura.
+        Estas son frases reales de dueños de empresas B2B. Si alguna te suena familiar, es probable que tu proceso de ventas necesite más que esfuerzo individual, necesite estructura.
       </p></FI>
       
       {/* AQUÍ ESTÁ LA SOLUCIÓN: Cambiamos a "1fr 1fr" para forzar 2 columnas exactas */}
@@ -179,7 +179,7 @@ function Problema() {
         <div style={{ marginTop: 36, padding: "30px 34px", borderRadius: 12, background: C.bg2, border: `1px solid ${C.border}`, boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
           {/* Aumentamos el tamaño a 18 y el interlineado a 1.7 para que se lea perfecto */}
           <p style={{ fontFamily: F.b, fontSize: 18, color: C.w, margin: 0, lineHeight: 1.7, fontWeight: 400 }}>
-            <strong style={{ color: C.w, fontWeight: 700 }}>Ves bajas ventas, el desorden de tu equipo y la falta de cierres, pero esos son solo los síntomas. </strong>
+            <strong style={{ color: C.w, fontWeight: 700 }}>Ves el desorden de tu equipo y la falta de cierres, pero esos son solo los síntomas. </strong>
             Las verdaderas causas de tu estancamiento son invisibles a simple vista: procesos rotos y falta de control operativo. 
             <strong style={{ color: C.w, fontWeight: 700 }}> Antes de exigir más ventas, necesitas reparar la estructura.</strong>
           </p>
@@ -230,7 +230,7 @@ function Valor() {
         <div style={{ marginTop: 40, background: C.bg, border: `1px solid ${C.border}`, borderTop: `6px solid ${C.blue}`, borderRadius: 12, padding: "32px", textAlign: "center", boxShadow: "0 10px 30px rgba(0,0,0,0.08)" }}>
           {/* CIERRE GIGANTE: TAMAÑO 19px, COLOR NAVY (NEGRO), PESO 600 */}
           <p style={{ fontFamily: F.b, fontSize: 19, color: C.navy, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>
-            "Con esta transición dejarás de quemar plata en esfuerzos comerciales desarticulados y construyes un motor de ingresos predecible, sostenido por una estructura comercial sólida y rentable."
+            Con esta transición dejarás de quemar plata en esfuerzos comerciales desarticulados y construyes un motor de ingresos predecible, sostenido por una estructura comercial sólida y rentable.
           </p>
         </div>
       </FI>
