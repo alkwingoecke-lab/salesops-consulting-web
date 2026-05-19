@@ -20,8 +20,8 @@ const C = {
   amber: "#b8860b", amberSoft: "rgba(184,134,11,0.06)",
   green: "#017737", greenSoft: "rgba(1,119,55,0.05)", greenBorder: "rgba(1,119,55,0.12)",
   w: "#0f172a",     /* primary text - dark */
-  g: "#475569",     /* secondary text */
-  m: "#94a3b8",     /* muted text */
+  g: "#334155",     /* secondary text */
+  m: "#64748b",     /* muted text */
   d: "#cbd5e1",     /* very muted */
 };
 
@@ -86,7 +86,7 @@ function Nav() {
         <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
           <Logo size={22} />
           <span style={{ fontFamily: F.b, fontWeight: 800, fontSize: 15, color: C.w, letterSpacing: "0.04em" }}>SALESOPS</span>
-          <span style={{ fontFamily: F.b, fontWeight: 300, fontSize: 11, color: C.m, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
+          <span style={{ fontFamily: F.b, fontWeight: 400, fontSize: 11, color: C.m, letterSpacing: "0.1em", marginLeft: -4 }}>CONSULTING</span>
         </a>
         <div className="nav-links" style={{ display: "flex", gap: 26, alignItems: "center" }}>
           {links.map(([l, h]) => <a key={h} href={h} style={{ fontFamily: F.b, fontSize: 13, color: C.g, textDecoration: "none" }}>{l}</a>)}
@@ -110,7 +110,7 @@ function Hero() {
           </h1>
         </FI>
         <FI delay={0.2}>
-          <p style={{ fontFamily: F.b, fontSize: 18, color: C.g, lineHeight: 1.7, margin: "0 auto 44px", fontWeight: 300, maxWidth: 580 }}>
+          <p style={{ fontFamily: F.b, fontSize: 18, color: C.g, lineHeight: 1.7, margin: "0 auto 44px", fontWeight: 400, maxWidth: 580 }}>
             Consultoría de ventas para empresas B2B que necesitan dejar de depender del dueño para cerrar negocios. Te ayudamos a sistematizar tus ventas para que tu equipo opere con orden, claridad y resultados que puedas anticipar.
           </p>
         </FI>
@@ -144,7 +144,7 @@ function Problema() {
           Tu empresa vende.<br /><span style={{ color: C.m }}>Pero no sabes cuánto va a vender mañana.</span>
         </h2>
       </FI>
-      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 300, lineHeight: 1.65 }}>
+      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 40px", maxWidth: 580, fontWeight: 400, lineHeight: 1.65 }}>
         Estas son frases reales de dueños de empresas B2B. Si alguna te suena familiar, es probable que tu proceso de ventas necesite más que esfuerzo individual — necesite estructura.
       </p></FI>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
@@ -185,7 +185,7 @@ function Valor() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
         <FI delay={0.1}><div>
           <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 14 }}>Sin sistema</p>
-          {L.map((t, i) => <div key={i} style={{ padding: "14px 18px", borderRadius: 8, marginBottom: 8, background: C.redSoft, borderLeft: "3px solid rgba(220,53,69,0.25)" }}><p style={{ fontFamily: F.b, fontSize: 14, color: C.g, margin: 0, lineHeight: 1.5, fontWeight: 300 }}>"{t}"</p></div>)}
+          {L.map((t, i) => <div key={i} style={{ padding: "14px 18px", borderRadius: 8, marginBottom: 8, background: C.redSoft, borderLeft: "3px solid rgba(220,53,69,0.25)" }}><p style={{ fontFamily: F.b, fontSize: 14, color: C.g, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>"{t}"</p></div>)}
         </div></FI>
         <FI delay={0.2}><div>
           <p style={{ fontFamily: F.b, fontSize: 11, fontWeight: 600, color: C.blue, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 14 }}>Con sistema</p>
@@ -208,7 +208,7 @@ function Metodo() {
       <FI><div style={{ textAlign: "center", marginBottom: 48 }}>
         <Tag>Nuestro método</Tag>
         <h2 style={{ fontFamily: F.d, fontSize: "clamp(32px,5vw,50px)", color: C.w, margin: "18px 0 6px", fontWeight: 400 }}>Método TAG</h2>
-        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 300 }}>Tres etapas consecutivas. Cada una prepara el terreno para la siguiente.</p>
+        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 400 }}>Tres etapas consecutivas. Cada una prepara el terreno para la siguiente.</p>
       </div></FI>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
         {ps.map((p, i) => (
@@ -217,7 +217,7 @@ function Metodo() {
               <span style={{ fontFamily: F.d, fontSize: 48, color: p.c, lineHeight: 1, opacity: 0.6 }}>{p.l}</span>
               <h3 style={{ fontFamily: F.b, fontSize: 20, fontWeight: 700, color: C.w, margin: "8px 0 3px" }}>{p.t}</h3>
               <p style={{ fontFamily: F.b, fontSize: 13, color: p.c, margin: "0 0 14px", fontWeight: 500 }}>{p.sub}</p>
-              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.65, margin: "0 0 14px", fontWeight: 300, flex: 1 }}>{p.desc}</p>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: C.g, lineHeight: 1.65, margin: "0 0 14px", fontWeight: 400, flex: 1 }}>{p.desc}</p>
               <p style={{ fontFamily: F.b, fontSize: 11, color: C.m, margin: 0, fontStyle: "italic", borderTop: `1px solid ${C.border}`, paddingTop: 12 }}>{p.foot}</p>
             </div>
           </FI>
@@ -275,7 +275,7 @@ function Eval() {
       <FI><div style={{ textAlign: "center", marginBottom: 36 }}>
         <Tag color={C.amber} bg={C.amberSoft}>Autoevaluación gratuita</Tag>
         <h2 style={{ fontFamily: F.d, fontSize: "clamp(28px,4vw,40px)", color: C.w, margin: "18px 0 8px", fontWeight: 400 }}>¿Qué tan ordenada está tu operación comercial?</h2>
-        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 300 }}>Cinco preguntas. Dos minutos. Un primer diagnóstico de dónde estás.</p>
+        <p style={{ fontFamily: F.b, fontSize: 15, color: C.m, fontWeight: 400 }}>Cinco preguntas. Dos minutos. Un primer diagnóstico de dónde estás.</p>
       </div></FI>
       <FI delay={0.1}>
         <div style={{ maxWidth: 640, margin: "0 auto", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 14, padding: "34px 30px", minHeight: 300, boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
@@ -364,7 +364,7 @@ function Quien() {
           Empresas B2B con equipos comerciales que necesitan orden.
         </h2>
       </FI>
-      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 36px", fontWeight: 300, lineHeight: 1.65, maxWidth: 600 }}>
+      <FI delay={0.12}><p style={{ fontFamily: F.b, fontSize: 15, color: C.g, margin: "0 0 36px", fontWeight: 400, lineHeight: 1.65, maxWidth: 600 }}>
         Trabajamos con dueños de empresas que venden a otras empresas, que tienen equipos de entre tres y doce personas en función comercial, y que saben que necesitan ordenar su operación para crecer sin depender de una sola persona.
       </p></FI>
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12, maxWidth: 700 }}>
@@ -399,10 +399,10 @@ function PipeSec() {
               <h3 style={{ fontFamily: F.d, fontSize: 26, color: C.w, margin: "0 0 16px", fontWeight: 400 }}>
                 El gestor de clientes que tu equipo realmente va a usar.
               </h3>
-              <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 300 }}>
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 400 }}>
                 La mayoría de las empresas que llegan a nosotros ya pagaron por un gestor de clientes que nadie usa. El problema nunca fue la herramienta — fue que nadie la configuró como sistema de decisión.
               </p>
-              <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 300 }}>
+              <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: "0 0 20px", fontWeight: 400 }}>
                 Elegimos Pipedrive porque es la plataforma que mejor se adapta a equipos comerciales de empresas medianas: es visual, intuitiva, y tiene una curva de adopción que permite que tu equipo esté operando en semanas, no en meses.
               </p>
               <p style={{ fontFamily: F.b, fontSize: 14, color: C.w, lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
@@ -435,7 +435,7 @@ function Friction() {
         <div style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 14, padding: "40px 32px", textAlign: "center" }}>
           <p style={{ fontFamily: F.d, fontSize: 21, color: C.w, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 16px" }}>"¿Y si mis vendedores se resisten al cambio?"</p>
           <div style={{ width: 36, height: 1, background: C.border, margin: "0 auto 16px" }} />
-          <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: 0, fontWeight: 300 }}>
+          <p style={{ fontFamily: F.b, fontSize: 14, color: C.g, lineHeight: 1.7, margin: 0, fontWeight: 400 }}>
             El vendedor que es bueno de verdad agradece la estructura porque le facilita el trabajo. El que se resiste a la transparencia, generalmente es porque se beneficia de la falta de orden. Ayudar al dueño a distinguir entre los dos es, en sí mismo, una de las cosas más valiosas que entregamos.
           </p>
         </div>
@@ -465,7 +465,7 @@ function Blog() {
               onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.03)"; }}>
               <span style={{ fontFamily: F.b, fontSize: 10, fontWeight: 600, color: C.blue, letterSpacing: "0.1em", textTransform: "uppercase" }}>{p.tag}</span>
               <h3 style={{ fontFamily: F.b, fontSize: 15, fontWeight: 600, color: C.w, margin: "8px 0", lineHeight: 1.35 }}>{p.title}</h3>
-              <p style={{ fontFamily: F.b, fontSize: 13, color: C.m, margin: 0, lineHeight: 1.5, fontWeight: 300 }}>{p.desc}</p>
+              <p style={{ fontFamily: F.b, fontSize: 13, color: C.m, margin: 0, lineHeight: 1.5, fontWeight: 400 }}>{p.desc}</p>
               <p style={{ fontFamily: F.b, fontSize: 12, color: C.blue, marginTop: 14, fontWeight: 500 }}>Próximamente →</p>
             </div>
           </FI>
@@ -483,7 +483,7 @@ function CTA() {
         <h2 style={{ fontFamily: F.d, fontSize: "clamp(30px,4.5vw,46px)", color: C.w, lineHeight: 1.1, margin: "0 0 16px", fontWeight: 400 }}>
           Empezamos con una conversación,<br /><em style={{ color: C.blue }}>no con un contrato.</em>
         </h2>
-        <p style={{ fontFamily: F.b, fontSize: 16, color: C.g, lineHeight: 1.65, margin: "0 auto 10px", fontWeight: 300, maxWidth: 540 }}>
+        <p style={{ fontFamily: F.b, fontSize: 16, color: C.g, lineHeight: 1.65, margin: "0 auto 10px", fontWeight: 400, maxWidth: 540 }}>
           Una reunión de 30 minutos para entender tu situación. Si tiene sentido avanzar, te proponemos un diagnóstico de una semana. Si no somos lo que necesitas, te lo decimos nosotros primero.
         </p>
         <p style={{ fontFamily: F.b, fontSize: 12, color: C.m, margin: "0 0 36px" }}>Sin compromiso. Sin presión. Sin letra chica.</p>
