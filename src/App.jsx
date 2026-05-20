@@ -305,7 +305,7 @@ function Eval() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          // ¡ATENCIÓN! Reemplaza "TU_ACCESS_KEY_AQUI" por el código que te llegó al correo
+          // ¡ATENCIÓN! Reemplaza "811360" por el código que te llegó al correo
           access_key: "811360",
           subject: "🔥 Nuevo Lead - Autoevaluación Web",
           Correo_Cliente: email,
