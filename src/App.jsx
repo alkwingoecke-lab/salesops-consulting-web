@@ -297,6 +297,24 @@ function Eval() {
   const enviarDiagnostico = async () => {
     if (!email) return;
     setStatusEnvio("enviando");
+
+    // 1. Preparamos los datos principales
+    const datosFormulario = {
+      // Pega aquí tu código largo de Web3Forms:
+      access_key: "0bc83269-5e3b-4011-88b5-5c1ef7b83f2e", 
+      subject: "🔥 Nuevo Lead - Autoevaluación Web",
+      from_name: "SalesOps Evaluador",
+      Correo_Cliente: email,
+      Puntaje_Obtenido: `${pct}/100`,
+      Nivel_Madurez: level
+    };
+
+    // 2. Magia: Extraemos las respuestas y las sumamos dinámicamente al correo
+    ans.forEach((indiceRespuesta, i) => {
+      // Esto agregará filas al correo tipo -> "Pregunta 1: ¿Tu equipo...?" : "Respuesta elegida"
+      datosFormulario[`P${i + 1}: ${QS[i].q}`] = QS[i].a[indiceRespuesta];
+    });
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -304,15 +322,7 @@ function Eval() {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify({
-          // ¡ATENCIÓN! Reemplaza "811360" por el código que te llegó al correo
-          access_key: "0bc83269-5e3b-4011-88b5-5c1ef7b83f2e",
-          subject: "🔥 Nuevo Lead - Autoevaluación Web",
-          Correo_Cliente: email,
-          Puntaje_Obtenido: `${pct}/100`,
-          Nivel_Madurez: level,
-          from_name: "SalesOps Evaluador"
-        })
+        body: JSON.stringify(datosFormulario)
       });
       const data = await res.json();
       if (data.success) setStatusEnvio("exito");
