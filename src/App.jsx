@@ -553,9 +553,9 @@ function CTA() {
 /* ── Footer ── */
 function Footer() {
   // 1. PEGA AQUÍ TUS ENLACES REALES ENTRE LAS COMILLAS:
-  const linkedinUrl = "TU_ENLACE_DE_LINKEDIN_AQUI"; 
-  const instagramUrl = "TU_ENLACE_DE_INSTAGRAM_AQUI";
-  const facebookUrl = "TU_ENLACE_DE_FACEBOOK_AQUI";
+  const linkedinUrl = "https://www.linkedin.com/company/salesops-consulting/"; 
+  const instagramUrl = "https://www.instagram.com/salesopsconsulting/";
+  const facebookUrl = "https://www.facebook.com/profile.php?id=61589963015210&locale=es_LA";
 
   return (
     <footer style={{ background: C.bg, paddingTop: 80, paddingBottom: 40, borderTop: `1px solid ${C.border}` }}>
