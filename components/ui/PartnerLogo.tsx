@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 export function PartnerLogo({ src, alt, label, height = 50, maxWidth = 200 }: { src: string; alt: string; label: string; height?: number; maxWidth?: number }) {
