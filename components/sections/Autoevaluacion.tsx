@@ -42,16 +42,37 @@ export function Autoevaluacion() {
     if (!email || hp) return;
     setStatus("sending");
 
-    const mappedAnswers = ans.map((idx, i) => ({ q: QUESTIONS[i].q, a: QUESTIONS[i].a[idx] }));
+    // 1. Preparamos los datos base del correo
+    const payload: Record<string, any> = {
+      access_key: "0bc83269-5e3b-4011-88b5-5c1ef7b83f2e", // <-- Pega tu llave aquí
+      subject: "Nuevo Lead - Autoevaluación SalesOps",
+      from_name: "SalesOps Evaluador",
+      "Correo Cliente": email,
+      "Puntaje Obtenido": `${pct}/100`,
+      "Nivel Madurez": level,
+      botcheck: hp
+    };
+
+    // 2. Insertamos cada pregunta y respuesta dinámicamente al formato de Web3Forms
+    ans.forEach((idx, i) => {
+      payload[`P${i + 1}: ${QUESTIONS[i].q}`] = QUESTIONS[i].a[idx];
+    });
+
     try {
-      const res = await fetch("/api/lead", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, score: pct, level, answers: mappedAnswers, botcheck: hp }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload),
       });
+      
       const data = await res.json();
       setStatus(data.success ? "success" : "error");
-    } catch { setStatus("error"); }
+    } catch { 
+      setStatus("error"); 
+    }
   };
 
   const openIframeModal = () => { window.dispatchEvent(new CustomEvent("open-conversion-modal")); };
