@@ -16,6 +16,9 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  // 1. Agrega el dominio base de tu sitio web
+  metadataBase: new URL('https://salesopsconsulting.cl'), 
+  
   title: 'SalesOps Consulting | Ordenamos y Sistematizamos tus Ventas',
   description: 'Consultoría en sistematización comercial, implementación de CRM y Revenue Operations. Auditamos procesos de venta B2B, B2C y B2G para que tu empresa crezca con control.',
   keywords: [
@@ -29,6 +32,11 @@ export const metadata: Metadata = {
     'sistematización comercial', 
     'optimización embudo b2b'
   ],
+  
+  // 2. Define la ruta canónica basada en el metadataBase
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
