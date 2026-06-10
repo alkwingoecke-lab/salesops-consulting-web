@@ -17,7 +17,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   // 1. Agrega el dominio base de tu sitio web
-  metadataBase: new URL('https://salesopsconsulting.cl'), 
+  metadataBase: new URL('https://www.salesopsconsulting.cl'), 
   
   title: 'SalesOps Consulting | Ordenamos y Sistematizamos tus Ventas',
   description: 'Consultoría en sistematización comercial, implementación de CRM y Revenue Operations. Auditamos procesos de venta B2B, B2C y B2G para que tu empresa crezca con control.',
