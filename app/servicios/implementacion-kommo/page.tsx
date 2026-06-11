@@ -109,9 +109,16 @@ export default function KommoPage() {
             <h2 className="font-serif text-3xl text-slate-900 mb-4">Hablemos de tu operación</h2>
             <p className="font-sans text-slate-600 mb-10">Completa el formulario y agendaremos una llamada de diagnóstico técnico de 30 minutos.</p>
             
-            {/* AQUÍ PEGAS EL CÓDIGO DEL FORMULARIO DE PIPEDRIVE */}
-            <div className="w-full min-h-[500px] bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center">
-               <p className="text-slate-400 text-sm">[https://webforms.pipedrive.com/f/ccHQZz5aqpfgKhc23WQtXw6c16WvVb7Kzj2DjzD9Rmse275FVbeenOwRDJps2eexy3]</p>
+           {/* AQUÍ ESTÁ EL IFRAME DEL FORMULARIO */}
+            <div className="w-full min-h-[650px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+              <iframe 
+                src="https://webforms.pipedrive.com/f/ccHQZz5aqpfgKhc23WQtXw6c16WvVb7Kzj2DjzD9Rmse275FVbeenOwRDJps2eexy3" 
+                width="100%" 
+                height="100%" 
+                style={{ minHeight: '650px' }}
+                frameBorder="0"
+                title="Formulario de Contacto"
+              />
             </div>
           </div>
         </section>
