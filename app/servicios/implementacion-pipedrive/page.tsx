@@ -26,7 +26,7 @@ export default function PipedrivePage() {
             {/* LOGO OFICIAL DE PARTNER */}
             <div className="mb-8">
               <Image 
-                src="/logos/pipedrive-partner.png" 
+                src="/logos/pipedrive-logo.png" 
                 alt="Partner Oficial de Pipedrive en Chile" 
                 width={180} 
                 height={50} 
