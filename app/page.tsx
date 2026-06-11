@@ -7,6 +7,7 @@ import { PartnerLogo } from "@/components/ui/PartnerLogo";
 import { Briefcase, Zap, Landmark } from "lucide-react";
 import Image from "next/image";
 import { Check, X } from 'lucide-react';
+import Link from "next/link";
 
 export const metadata = {
   title: "SalesOps Consulting | Estructura e Ingeniería Comercial",
@@ -225,28 +226,39 @@ export default function Home() {
                 <span className="font-sans text-sm text-slate-500">Cada plataforma como servicio independiente, según el modelo de venta de tu negocio</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="bg-white border border-slate-200 border-l-4 border-l-[#00a651] rounded-lg p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
+                
+                {/* TARJETA PIPEDRIVE CLICKABLE */}
+                <Link href="/servicios/implementacion-pipedrive" className="group bg-white border border-slate-200 border-l-4 border-l-[#00a651] rounded-lg p-6 shadow-sm flex flex-col hover:shadow-md hover:border-slate-300 transition-all hover:-translate-y-1 cursor-pointer">
                   <div className="h-6 mb-4 relative w-28">
                     <Image src="/logos/pipedrive-logo.png" alt="Pipedrive" fill className="object-contain object-left" />
                   </div>
                   <div className="flex items-center gap-3 mb-3">
-                    <h3 className="font-sans text-lg font-bold text-slate-900">Implementación Pipedrive</h3>
+                    <h3 className="font-sans text-lg font-bold text-slate-900 group-hover:text-[#00a651] transition-colors">Implementación Pipedrive</h3>
                     <span className="font-sans text-[10px] font-bold tracking-wider text-[#00a651] bg-green-50 px-2 py-0.5 rounded uppercase">Servicio Independiente</span>
                   </div>
                   <p className="font-sans text-[15px] text-slate-600 leading-relaxed mb-6 flex-1">Para venta B2B consultiva. Configuramos Pipedrive como sistema de decisión, no como agenda de contactos: pipelines según tu proceso real, automatizaciones, dashboards de proyección y capacitación del equipo. Incluye mantención opcional para que el sistema no se degrade.</p>
-                  <span className="font-sans text-[11px] font-bold text-[#00a651] tracking-wider uppercase">3 a 5 semanas</span>
-                </div>
-                <div className="bg-white border border-slate-200 border-l-4 border-l-[#ff6b00] rounded-lg p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="font-sans text-[11px] font-bold text-[#00a651] tracking-wider uppercase">3 a 5 semanas</span>
+                    <span className="font-sans text-[13px] font-bold text-[#00a651] group-hover:translate-x-1 transition-transform">Ver detalles &rarr;</span>
+                  </div>
+                </Link>
+
+                {/* TARJETA KOMMO CLICKABLE */}
+                <Link href="/servicios/implementacion-kommo" className="group bg-white border border-slate-200 border-l-4 border-l-[#ff6b00] rounded-lg p-6 shadow-sm flex flex-col hover:shadow-md hover:border-slate-300 transition-all hover:-translate-y-1 cursor-pointer">
                   <div className="h-6 mb-4 relative w-28">
                     <Image src="/logos/kommo-logo.png" alt="Kommo" fill className="object-contain object-left" />
                   </div>
                   <div className="flex items-center gap-3 mb-3">
-                    <h3 className="font-sans text-lg font-bold text-slate-900">Implementación Kommo</h3>
+                    <h3 className="font-sans text-lg font-bold text-slate-900 group-hover:text-[#ff6b00] transition-colors">Implementación Kommo</h3>
                     <span className="font-sans text-[10px] font-bold tracking-wider text-[#ff6b00] bg-orange-50 px-2 py-0.5 rounded uppercase">Servicio Independiente</span>
                   </div>
                   <p className="font-sans text-[15px] text-slate-600 leading-relaxed mb-6 flex-1">Para venta multicanal y WhatsApp. Plataforma para gestionar WhatsApp, Instagram, Facebook y Telegram desde un solo lugar: WhatsApp Business API oficial, bots de calificación, plantillas con variables e integración con Pipedrive si tu modelo es híbrido.</p>
-                  <span className="font-sans text-[11px] font-bold text-[#ff6b00] tracking-wider uppercase">2 a 4 semanas</span>
-                </div>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="font-sans text-[11px] font-bold text-[#ff6b00] tracking-wider uppercase">2 a 4 semanas</span>
+                    <span className="font-sans text-[13px] font-bold text-[#ff6b00] group-hover:translate-x-1 transition-transform">Ver detalles &rarr;</span>
+                  </div>
+                </Link>
+
               </div>
             </FadeIn>
           </div>
