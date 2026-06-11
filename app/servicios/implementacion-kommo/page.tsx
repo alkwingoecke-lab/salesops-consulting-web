@@ -45,7 +45,7 @@ export default function KommoPage() {
             {/* BOTONES DE ACCIÓN (CTA) */}
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <a 
-                href="/#autoevaluacion" 
+                href="#contacto" 
                 className="bg-[#ff6b00] text-white px-8 py-3.5 rounded-xl font-sans text-[15px] font-bold shadow-md hover:bg-[#e66000] transition-all w-full sm:w-auto text-center"
               >
                 Agendar diagnóstico técnico
@@ -102,6 +102,18 @@ export default function KommoPage() {
               </ul>
             </div>
           </FadeIn>
+        </section>
+        {/* SECCIÓN DE CONTACTO EN LA MISMA PÁGINA */}
+        <section id="contacto" className="py-24 px-6 bg-white border-t border-slate-100">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-serif text-3xl text-slate-900 mb-4">Hablemos de tu operación</h2>
+            <p className="font-sans text-slate-600 mb-10">Completa el formulario y agendaremos una llamada de diagnóstico técnico de 30 minutos.</p>
+            
+            {/* AQUÍ PEGAS EL CÓDIGO DEL FORMULARIO DE PIPEDRIVE */}
+            <div className="w-full min-h-[500px] bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center">
+               <p className="text-slate-400 text-sm">[https://webforms.pipedrive.com/f/ccHQZz5aqpfgKhc23WQtXw6c16WvVb7Kzj2DjzD9Rmse275FVbeenOwRDJps2eexy3]</p>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
