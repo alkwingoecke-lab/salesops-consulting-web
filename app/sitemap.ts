@@ -8,6 +8,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    // Si en el futuro agregas más páginas (ej. /servicios), las agregas aquí debajo
+    {
+      url: 'https://www.salesopsconsulting.cl/servicios/implementacion-pipedrive',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://www.salesopsconsulting.cl/servicios/implementacion-kommo',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    }
   ]
 }
