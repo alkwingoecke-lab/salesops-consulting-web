@@ -12,10 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://www.salesopsconsulting.cl/servicios/implementacion-pipedrive',
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.9,
     },
     {
-      url: 'https://www.salesopsconsulting.cl/servicios/implementacion-kommo',
+      url: 'https://www.salesopsconsulting.cl/calculadora-roi-pipedrive',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
