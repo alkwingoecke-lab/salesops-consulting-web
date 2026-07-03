@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Outfit, Instrument_Serif } from 'next/font/google';
 import "./globals.css";
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans antialiased text-slate-900 bg-white">
         {children}
       </body>
+      <GoogleTagManager gtmId="GTM-WP88J289" />
     </html>
   );
 }
