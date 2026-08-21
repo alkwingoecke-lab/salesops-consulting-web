@@ -15,7 +15,9 @@ import {
   Briefcase, 
   Building2, 
   Landmark,
-  Cpu
+  Cpu,
+  Scale,
+  BookOpen
 } from "lucide-react";
 import Link from "next/link";
 
@@ -30,7 +32,7 @@ export default function HomePage() {
 
       <main className="pt-36 pb-24">
         {/* =========================================================
-            HERO CONSULTIVO: DIRECTO Y LIMPIO
+            HERO CONSULTIVO (H1 Optimizado)
         ========================================================== */}
         <section className="px-6 max-w-5xl mx-auto mb-28 pt-4">
           <FadeIn immediate>
@@ -63,7 +65,7 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================
-            EL DIAGNÓSTICO: FRASES REALES Y ESTRUCTURA
+            EL DIAGNÓSTICO (H2)
         ========================================================== */}
         <section id="problema" className="px-6 max-w-5xl mx-auto mb-32 border-t border-slate-200 pt-20">
           <div className="max-w-3xl mb-14">
@@ -124,9 +126,9 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================
-            ÁREAS DE ESPECIALIDAD OPERATIVA
+            ÁREAS DE ESPECIALIDAD (H2)
         ========================================================== */}
-        <section id="servicios" className="px-6 max-w-5xl mx-auto mb-32">
+        <section id="servicios" className="px-6 max-w-5xl mx-auto mb-20">
           <div className="max-w-3xl mb-14">
             <h2 className="font-sans font-bold text-3xl sm:text-4xl text-[#0F172A] tracking-tight mb-4">
               Nuestras áreas de especialidad operativa
@@ -263,7 +265,32 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================
-            SECTORES DE ESPECIALIDAD
+            NUEVO: COMPARATIVAS CRM (INTERNAL LINKING SEO)
+        ========================================================== */}
+        <section className="px-6 max-w-5xl mx-auto mb-32">
+          <div className="bg-gradient-to-br from-[#0F172A] to-[#1e293b] rounded-3xl p-8 sm:p-10 lg:p-12 border border-slate-800 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3 mb-4">
+                <Scale className="text-[#35B06B]" size={28} />
+                <h2 className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight">
+                  ¿No sabes qué CRM implementar?
+                </h2>
+              </div>
+              <p className="text-base text-slate-300 leading-relaxed mb-6 lg:mb-0">
+                Analizamos a fondo las herramientas del mercado. Comparamos Pipedrive contra Excel, HubSpot, Zoho, monday, Bitrix24 y Kommo para que elijas con datos reales y sin sesgos de marketing.
+              </p>
+            </div>
+            <Link
+              href="/comparativas"
+              className="bg-white text-[#0F172A] font-bold px-8 py-4 rounded-xl hover:bg-slate-100 transition-colors shrink-0 shadow-sm flex items-center gap-2 text-base text-center w-full sm:w-auto justify-center"
+            >
+              Ver comparativas de CRM <ArrowRight size={18} />
+            </Link>
+          </div>
+        </section>
+
+        {/* =========================================================
+            SECTORES DE ESPECIALIDAD (H2)
         ========================================================== */}
         <section id="quien" className="bg-[#0F172A] text-white py-24 px-6 mb-32">
           <div className="max-w-5xl mx-auto">
@@ -300,7 +327,7 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================
-            MÉTODO DE INTERVENCIÓN EN 4 ETAPAS
+            MÉTODO DE INTERVENCIÓN (H2)
         ========================================================== */}
         <section id="metodo" className="px-6 max-w-5xl mx-auto mb-32">
           <h2 className="font-sans font-bold text-3xl sm:text-4xl text-[#0F172A] tracking-tight max-w-2xl mb-14">
@@ -343,21 +370,72 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================
-            BANNER PUENTE HACIA LA CALCULADORA ROI
+            NUEVO: BLOG Y GUÍAS (INTERNAL LINKING SEO)
+        ========================================================== */}
+        <section className="px-6 max-w-5xl mx-auto mb-32 border-t border-slate-200 pt-20">
+          <div className="flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <span className="font-mono text-[11px] font-bold text-[#2D3F8F] tracking-widest uppercase mb-3 block">
+                Blog y Recursos Gratuitos
+              </span>
+              <h2 className="font-sans font-bold text-3xl sm:text-4xl text-[#0F172A] tracking-tight mb-4">
+                Aprende a diseñar un embudo que tu equipo sí quiera usar
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+                La razón número uno por la que un CRM fracasa es porque se copia una plantilla genérica. En nuestra guía principal te enseñamos a mapear las etapas de venta basándote en la decisión del cliente, no en tus tareas administrativas.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/blog/como-disenar-embudo-de-ventas"
+                  className="bg-[#EAF5EF] text-[#0E6A4F] border border-[#0E6A4F]/25 font-bold px-6 py-3.5 rounded-xl hover:bg-[#DCE8E1] transition-colors flex items-center justify-center gap-2"
+                >
+                  <BookOpen size={18} /> Leer la guía completa
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-slate-600 font-semibold px-6 py-3.5 rounded-xl hover:text-[#2D3F8F] transition-colors flex items-center justify-center gap-2"
+                >
+                  Ver todos los artículos
+                </Link>
+              </div>
+            </div>
+            
+            <div className="hidden md:flex flex-1 justify-center relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-100 to-green-50 rounded-full blur-3xl opacity-50"></div>
+              <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-xl relative z-10 w-full max-w-sm rotate-2 hover:rotate-0 transition-transform duration-500">
+                <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-4">
+                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-slate-100 rounded w-3/4"></div>
+                  <div className="h-4 bg-slate-100 rounded w-full"></div>
+                  <div className="h-4 bg-slate-100 rounded w-5/6"></div>
+                  <div className="h-4 bg-slate-100 rounded w-1/2 mb-6"></div>
+                  <div className="h-10 bg-[#2D3F8F]/10 rounded w-full mt-6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            BANNER PUENTE HACIA LA CALCULADORA ROI (H2)
         ========================================================== */}
         <section className="px-6 max-w-5xl mx-auto mb-32">
           <div className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xs">
             <div className="max-w-2xl">
-              <h3 className="font-sans font-bold text-3xl text-[#0F172A] tracking-tight mb-3">
+              <h2 className="font-sans font-bold text-3xl text-[#0F172A] tracking-tight mb-3">
                 ¿Cuánto capital deja en la mesa tu empresa cada mes?
-              </h3>
+              </h2>
               <p className="text-base text-slate-600">
                 Simula el impacto de ordenar tu proceso comercial. Evalúa tu retorno de inversión estimado y las oportunidades que puedes recuperar.
               </p>
             </div>
             <Link
               href="/calculadora-roi-pipedrive"
-              className="bg-[#2D3F8F] text-white font-bold px-8 py-4 rounded-xl hover:bg-[#202e70] transition-colors shrink-0 shadow-sm flex items-center gap-2 text-base"
+              className="bg-[#2D3F8F] text-white font-bold px-8 py-4 rounded-xl hover:bg-[#202e70] transition-colors shrink-0 shadow-sm flex items-center justify-center gap-2 text-base w-full sm:w-auto"
             >
               <Calculator size={20} /> Ir a la calculadora
             </Link>
@@ -365,7 +443,7 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================
-            SECCIÓN FINAL DE CONTACTO
+            SECCIÓN FINAL DE CONTACTO (H2)
         ========================================================== */}
         <section className="px-6 max-w-3xl mx-auto text-center">
           <h2 className="font-sans font-bold text-3xl sm:text-5xl text-[#0F172A] tracking-tight mb-4">
