@@ -28,6 +28,9 @@ const itemListSchema = {
     { "@type": "ListItem", position: 1, name: "Pipedrive vs Excel", url: "https://www.salesopsconsulting.cl/comparativas/pipedrive-vs-excel" },
     { "@type": "ListItem", position: 2, name: "Pipedrive vs HubSpot", url: "https://www.salesopsconsulting.cl/comparativas/pipedrive-vs-hubspot" },
     { "@type": "ListItem", position: 3, name: "Pipedrive vs Zoho", url: "https://www.salesopsconsulting.cl/comparativas/pipedrive-vs-zoho" },
+    { "@type": "ListItem", position: 4, name: "Pipedrive vs Kommo", url: "https://www.salesopsconsulting.cl/comparativas/pipedrive-vs-kommo" },
+    { "@type": "ListItem", position: 5, name: "Pipedrive vs monday", url: "https://www.salesopsconsulting.cl/comparativas/pipedrive-vs-monday" },
+    { "@type": "ListItem", position: 6, name: "Pipedrive vs Bitrix24", url: "https://www.salesopsconsulting.cl/comparativas/pipedrive-vs-bitrix24" },
   ],
 };
 
@@ -68,7 +71,7 @@ const directory = [
   { name: "Zoho CRM", desc: "El más barato, con un ecosistema enorme", link: "/comparativas/pipedrive-vs-zoho", linkText: "Pipedrive vs Zoho →", active: true },
   { name: "Kommo", desc: "Nativo en WhatsApp, para ventas por chat", link: "/comparativas/pipedrive-vs-kommo", linkText: "Pipedrive vs Kommo →", active: true },
   { name: "monday", desc: "Plataforma flexible de gestión de trabajo", link: "/comparativas/pipedrive-vs-monday", linkText: "Pipedrive vs monday →", active: true },
-  { name: "Bitrix24", desc: "Todo en uno gratis, muy amplio", link: "/comparativas/pipedrive-vs-bitrix24", linkText: "Pipedrive vs Bitrix24 →", active: true }, },
+  { name: "Bitrix24", desc: "Todo en uno gratis, muy amplio", link: "/comparativas/pipedrive-vs-bitrix24", linkText: "Pipedrive vs Bitrix24 →", active: true },
 ];
 
 const faqs = [
@@ -299,7 +302,7 @@ export default function ComparativasPage() {
               Agenda un diagnóstico
             </a>
             <Link href="/calculadora-roi-pipedrive" className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-bold border border-white/20 transition-colors text-sm">
-              Calcula tu retorno
+              Calculadora de ROI
             </Link>
           </div>
           <p className="text-xs text-slate-400">
