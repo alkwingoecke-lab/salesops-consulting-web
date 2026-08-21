@@ -312,17 +312,27 @@ export default function PipedriveVsExcelPage() {
             <Link href="/calculadora-roi-pipedrive" className="bg-[#3E5BD9] hover:bg-[#4A67E6] text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm">
               Calcula lo que pierdes con planillas
             </Link>
-            <a href={FORM_URL} className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-bold border border-white/20 transition-colors text-sm">
-              Agenda un diagnóstico
-            </a>
+            <a 
+  href="https://rf-salesopsconsultingspa.pipedrive.com/scheduler/x1JkBrCY/reunion-de-asesoria" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-bold border border-white/20 transition-colors text-sm"
+>
+  Agenda un diagnóstico
+</a>
           </div>
-          <p className="text-xs text-slate-400">
-            ¿Prefieres partir por tu cuenta?{" "}
-            <a href={AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer" className="text-[#7CCB98] underline hover:text-white">
-              Crea tu cuenta de Pipedrive aquí
-            </a>{" "}
-            y parte con una prueba extendida.
-          </p>
+        <p className="text-xs text-slate-400">
+  ¿Prefieres partir por tu cuenta?{" "}
+  <a 
+    href="https://app.pipedrive.com/affiliate/pdp-soc?utm_source=Salesops+Consulting+SpA&utm_medium=partners_program&utm_content=copy_text&utm_term=pdp-soc" 
+    target="_blank" 
+    rel="sponsored noopener noreferrer" 
+    className="text-[#7CCB98] underline hover:text-white"
+  >
+    Crea tu cuenta de Pipedrive aquí
+  </a>{" "}
+  y parte con una prueba extendida de 30 días.
+</p>
         </div>
       </main>
 
