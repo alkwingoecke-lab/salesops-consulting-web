@@ -176,17 +176,13 @@ export default function CalculadoraROI() {
             />
           </Link>
 
-          <div className="flex items-center gap-3.5 bg-white px-5 py-3 rounded-2xl border border-[#D8E2DC] shadow-sm">
-            <ShieldCheck size={24} className="text-[#0E6A4F] shrink-0" />
-            <span className="font-mono text-sm sm:text-base font-bold text-[#0C1D17] tracking-tight whitespace-nowrap">
-              Partner Oficial de
-            </span>
+         <div className="flex items-center gap-3.5 bg-white px-5 py-3 rounded-2xl border border-[#D8E2DC] shadow-sm">
             <Image
-              src="/logos/pipedrive-logo.png"
-              alt="Pipedrive"
-              width={140}
-              height={38}
-              className="h-6 sm:h-7 w-auto object-contain shrink-0"
+              src="/logos/pipedrive-partner.png"
+              alt="Pipedrive Authorized Partner"
+              width={160}
+              height={40}
+              className="h-7 w-auto object-contain shrink-0"
             />
           </div>
         </header>
@@ -246,7 +242,7 @@ export default function CalculadoraROI() {
                     <span className="font-mono font-bold text-sm text-[#0E6A4F]">{clp.format(implEfectiva)}</span>
                   </div>
                   <p className="text-xs mt-1 text-[#5B6B63] leading-relaxed">
-                    *Precio base referencial por proyecto ($600.000 CLP). El valor final no depende del número de licencias/usuarios, sino exclusivamente de la complejidad técnica de la arquitectura comercial.
+                    *El valor final no depende del número de la cantidad de usuarios, sus roles y de la complejidad técnica de la arquitectura comercial.
                   </p>
                   <label className="flex items-center gap-2 text-xs pt-2 cursor-pointer text-[#5B6B63]">
                     <input
