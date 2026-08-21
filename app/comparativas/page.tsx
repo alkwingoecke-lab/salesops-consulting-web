@@ -66,9 +66,9 @@ const directory = [
   { name: "Excel", desc: "Gratis y familiar, hasta que el equipo crece", link: "/comparativas/pipedrive-vs-excel", linkText: "Pipedrive vs Excel →", active: true },
   { name: "HubSpot", desc: "Todo en uno, con marketing potente", link: "/comparativas/pipedrive-vs-hubspot", linkText: "Pipedrive vs HubSpot →", active: true },
   { name: "Zoho CRM", desc: "El más barato, con un ecosistema enorme", link: "/comparativas/pipedrive-vs-zoho", linkText: "Pipedrive vs Zoho →", active: true },
-  { { name: "Kommo", desc: "Nativo en WhatsApp, para ventas por chat", link: "/comparativas/pipedrive-vs-kommo", linkText: "Pipedrive vs Kommo →", active: true },
-  { { name: "monday", desc: "Plataforma flexible de gestión de trabajo", link: "/comparativas/pipedrive-vs-monday", linkText: "Pipedrive vs monday →", active: true },
-  { { name: "Bitrix24", desc: "Todo en uno gratis, muy amplio", link: "/comparativas/pipedrive-vs-bitrix24", linkText: "Pipedrive vs Bitrix24 →", active: true }, },
+  { name: "Kommo", desc: "Nativo en WhatsApp, para ventas por chat", link: "/comparativas/pipedrive-vs-kommo", linkText: "Pipedrive vs Kommo →", active: true },
+  { name: "monday", desc: "Plataforma flexible de gestión de trabajo", link: "/comparativas/pipedrive-vs-monday", linkText: "Pipedrive vs monday →", active: true },
+  { name: "Bitrix24", desc: "Todo en uno gratis, muy amplio", link: "/comparativas/pipedrive-vs-bitrix24", linkText: "Pipedrive vs Bitrix24 →", active: true }, },
 ];
 
 const faqs = [
