@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
+import { GoogleTagManager } from '@next/third-parties/google';
 import "./globals.css";
 
 // Configuración de fuentes de Google para Next.js
@@ -97,7 +98,7 @@ export default function RootLayout({
           type="application/ld+json" 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} 
         />
-        {/* Aquí puedes agregar tu script de Google Tag Manager si lo tienes */}
+        <GoogleTagManager gtmId="GTM-WP88J289" />
       </head>
       <body className="font-sans antialiased bg-[#F1F3F7] text-[#0B1020]">
         {children}
