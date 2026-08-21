@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // SVGs nativos para no depender de librerías de terceros en logos de marcas
 const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -31,19 +33,45 @@ export function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200 pt-16 pb-10">
       <div className="max-w-[1120px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-center md:text-left mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left mb-12">
+          
+          {/* Contacto Directo */}
           <div className="flex flex-col items-center md:items-start">
             <p className="font-sans text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Contacto Directo</p>
-            <a href="mailto:contacto@salesopsconsulting.cl" className="font-sans text-base font-semibold text-slate-900 hover:text-[#2d3f8f] transition-colors">
+            <a href="mailto:contacto@salesopsconsulting.cl" className="font-sans text-base font-semibold text-slate-900 hover:text-[#2d3f8f] transition-colors mb-3">
               contacto@salesopsconsulting.cl
             </a>
+            <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-xs">
+              Asesoría e implementación comercial para estructurar tu equipo de ventas.
+            </p>
           </div>
+
+          {/* Navegación y Recursos */}
+          <div className="flex flex-col items-center md:items-start">
+            <p className="font-sans text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Recursos y Soluciones</p>
+            <div className="flex flex-col gap-2 font-sans text-sm text-slate-600">
+              <Link href="/servicios/implementacion-pipedrive" className="hover:text-[#2d3f8f] transition-colors">
+                Pipedrive CRM
+              </Link>
+              <Link href="/calculadora-roi-pipedrive" className="hover:text-[#2d3f8f] transition-colors">
+                Calculadora ROI
+              </Link>
+              <Link href="/comparativas" className="hover:text-[#2d3f8f] transition-colors">
+                Comparativas de CRM
+              </Link>
+              <Link href="/blog" className="hover:text-[#2d3f8f] transition-colors">
+                Blog de Ventas y Operaciones
+              </Link>
+            </div>
+          </div>
+
+          {/* Canales Corporativos */}
           <div className="flex flex-col items-center md:items-end">
             <p className="font-sans text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-3">Canales Corporativos</p>
             <div className="flex gap-5">
               {socials.map(({ Icon, url, label }) => (
                 <a key={url} href={url} target="_blank" rel="noopener noreferrer" aria-label={label} className="text-slate-600 hover:text-[#2d3f8f] hover:scale-105 transition-all">
-                  <Icon size={32} />
+                  <Icon size={30} />
                 </a>
               ))}
             </div>
