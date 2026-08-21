@@ -176,13 +176,13 @@ export default function CalculadoraROI() {
             />
           </Link>
 
-         <div className="flex items-center gap-3.5 bg-white px-5 py-3 rounded-2xl border border-[#D8E2DC] shadow-sm">
+         <div className="flex items-center bg-white px-4 py-2 rounded-2xl border border-[#D8E2DC] shadow-sm">
             <Image
               src="/logos/pipedrive-partner.png"
               alt="Pipedrive Authorized Partner"
-              width={160}
-              height={40}
-              className="h-7 w-auto object-contain shrink-0"
+              width={180}
+              height={50}
+              className="h-9 w-auto object-contain shrink-0"
             />
           </div>
         </header>
