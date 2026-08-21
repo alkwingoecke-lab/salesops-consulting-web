@@ -59,7 +59,7 @@ const faqSchema = {
       name: "¿Necesito ayuda para implementarlo o lo hago solo?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Un equipo chico suele partir bien por su cuenta. Cuando ya hay varios vendedores y un proceso que ordenar, un acompañamiento asegura que el equipo lo adopte y que el embudo refleje tu forma real de vender.",
+        text: "Un equipo pequeño suele partir bien por su cuenta. Cuando ya hay varios vendedores y un proceso que ordenar, un acompañamiento asegura que el equipo lo adopte y que el embudo refleje tu forma real de vender.",
       },
     },
   ],
@@ -91,7 +91,7 @@ const faqs = [
   { q: "¿Cuándo conviene dejar la planilla?", a: "Regla simple: si más de una persona toca la misma planilla, o si pierdes negocios por no hacer el seguimiento a tiempo, ya se te quedó chica. Ese suele ser el momento en que la planilla empieza a costarte plata en vez de ahorrártela." },
   { q: "¿Se pueden pasar mis datos de Excel a Pipedrive?", a: "Sí. Pipedrive importa directamente desde Excel o CSV. Con un mapeo ordenado de columnas a campos migras contactos, empresas y negocios sin perder el historial." },
   { q: "¿Cuánto cuesta Pipedrive frente a Excel?", a: "Excel ya lo pagas dentro de Office. Pipedrive parte en US$14 por usuario al mes. La diferencia real no está en la licencia, está en los negocios que dejas de perder cuando el seguimiento deja de depender de la memoria." },
-  { q: "¿Necesito ayuda para implementarlo o lo hago solo?", a: "Un equipo chico suele partir bien por su cuenta. Cuando ya hay varios vendedores y un proceso que ordenar, un acompañamiento asegura que el equipo lo adopte y que el embudo refleje tu forma real de vender. Ahí está la diferencia entre un CRM que se usa y uno que se abandona." },
+  { q: "¿Necesito ayuda para implementarlo o lo hago solo?", a: "Un equipo pequeño suele partir bien por su cuenta. Cuando ya hay varios vendedores y un proceso que ordenar, un acompañamiento asegura que el equipo lo adopte y que el embudo refleje tu forma real de vender. Ahí está la diferencia entre un CRM que se usa y uno que se abandona." },
 ];
 
 const SCHEDULER_URL = "https://rf-salesopsconsultingspa.pipedrive.com/scheduler/x1JkBrCY/reunion-de-asesoria";
