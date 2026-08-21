@@ -176,13 +176,13 @@ export default function CalculadoraROI() {
             />
           </Link>
 
-         <div className="flex items-center bg-white px-4 py-2 rounded-2xl border border-[#D8E2DC] shadow-sm">
+         <div className="flex items-center">
             <Image
               src="/logos/pipedrive-partner.png"
               alt="Pipedrive Authorized Partner"
-              width={180}
-              height={50}
-              className="h-9 w-auto object-contain shrink-0"
+              width={220}
+              height={60}
+              className="h-14 w-auto object-contain shrink-0"
             />
           </div>
         </header>
@@ -242,7 +242,7 @@ export default function CalculadoraROI() {
                     <span className="font-mono font-bold text-sm text-[#0E6A4F]">{clp.format(implEfectiva)}</span>
                   </div>
                   <p className="text-xs mt-1 text-[#5B6B63] leading-relaxed">
-                    *El valor final no depende del número de la cantidad de usuarios, sus roles y de la complejidad técnica de la arquitectura comercial.
+                    *El valor final depende del número de la cantidad de usuarios, sus roles y de la complejidad técnica de la arquitectura comercial.
                   </p>
                   <label className="flex items-center gap-2 text-xs pt-2 cursor-pointer text-[#5B6B63]">
                     <input
@@ -426,7 +426,7 @@ export default function CalculadoraROI() {
             },
             {
               q: "¿Cómo se estima el costo de implementación?",
-              a: "Con una fórmula de autoatención: $600.000 base referencial por proyecto. El valor final no depende del número de licencias o vendedores, sino de la complejidad técnica de la arquitectura comercial (integraciones, embudos B2G o automatizaciones avanzadas). La propuesta real de SalesOps se cotiza con alcance cerrado y precio fijo en UF después del diagnóstico técnico.",
+              a: "Con una fórmula de autoatención: El valor final depende del número de licencias, de los roles que integren el equipo y de la complejidad técnica de la arquitectura comercial (integraciones, embudos B2G o automatizaciones avanzadas). La propuesta real de SalesOps se cotiza con alcance cerrado y precio fijo en UF después del diagnóstico técnico.",
             },
             {
               q: "¿Por qué el ROI usa margen y no venta?",
