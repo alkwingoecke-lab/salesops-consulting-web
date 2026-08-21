@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { HeaderManager } from "@/components/layout/HeaderManager";
 import { Footer } from "@/components/layout/Footer";
 
@@ -93,7 +94,7 @@ const faqs = [
   { q: "¿Necesito ayuda para implementarlo o lo hago solo?", a: "Un equipo chico suele partir bien por su cuenta. Cuando ya hay varios vendedores y un proceso que ordenar, un acompañamiento asegura que el equipo lo adopte y que el embudo refleje tu forma real de vender. Ahí está la diferencia entre un CRM que se usa y uno que se abandona." },
 ];
 
-const FORM_URL = "https://webforms.pipedrive.com/f/cs71NsC9gaigrHlOs1TdIo7mCaKBAqhSvSeTdi2sAQgmmx4jIJYlZGh2Yc9VazEBqz";
+const SCHEDULER_URL = "https://rf-salesopsconsultingspa.pipedrive.com/scheduler/x1JkBrCY/reunion-de-asesoria";
 const AFFILIATE_URL = "https://app.pipedrive.com/affiliate/pdp-soc?utm_source=Salesops+Consulting+SpA&utm_medium=partners_program&utm_content=copy_text&utm_term=pdp-soc";
 
 export default function PipedriveVsExcelPage() {
@@ -108,13 +109,28 @@ export default function PipedriveVsExcelPage() {
       <header className="bg-gradient-to-b from-[#0A1026] to-[#06070F] text-[#EEF1F6] border-b-2 border-[#35B06B] pt-32 pb-14 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="flex justify-between items-center pb-4 mb-8 border-b border-slate-700/50 text-xs font-mono uppercase tracking-widest text-slate-400">
-            <span>SalesOps</span>
+            <Link href="/" className="inline-block">
+              <Image
+                src="/logos/logo-salesops-light.png"
+                alt="SalesOps Consulting"
+                width={140}
+                height={32}
+                className="h-7 w-auto object-contain"
+              />
+            </Link>
             <span>Comparativa de CRM · 2026</span>
           </div>
 
-          <p className="font-mono text-xs uppercase tracking-widest text-[#7CCB98] font-semibold mb-3">
-            Pipedrive Authorized Partner
-          </p>
+          <div className="mb-4 inline-block">
+            <Image
+              src="/logos/pipedrive-partner.png"
+              alt="Pipedrive Authorized Partner"
+              width={160}
+              height={40}
+              className="h-8 w-auto object-contain"
+            />
+          </div>
+
           <h1 className="font-serif text-4xl sm:text-6xl font-normal leading-tight text-white mb-4">
             Pipedrive <span className="italic text-slate-400 text-3xl sm:text-5xl font-light">vs</span> <span className="text-slate-400">Excel</span>
           </h1>
@@ -216,7 +232,7 @@ export default function PipedriveVsExcelPage() {
           </div>
         </div>
 
-        {/* Costo Oculto (Estadísticas) */}
+        {/* Costo Oculto */}
         <section className="mb-14">
           <p className="font-mono text-xs uppercase tracking-widest text-slate-500 font-bold mb-2">El costo oculto</p>
           <h2 className="font-serif text-3xl font-normal text-slate-900 mb-6">
@@ -313,26 +329,21 @@ export default function PipedriveVsExcelPage() {
               Calcula lo que pierdes con planillas
             </Link>
             <a 
-  href="https://rf-salesopsconsultingspa.pipedrive.com/scheduler/x1JkBrCY/reunion-de-asesoria" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-bold border border-white/20 transition-colors text-sm"
->
-  Agenda un diagnóstico
-</a>
+              href={SCHEDULER_URL} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-bold border border-white/20 transition-colors text-sm"
+            >
+              Agenda un diagnóstico
+            </a>
           </div>
-        <p className="text-xs text-slate-400">
-  ¿Prefieres partir por tu cuenta?{" "}
-  <a 
-    href="https://app.pipedrive.com/affiliate/pdp-soc?utm_source=Salesops+Consulting+SpA&utm_medium=partners_program&utm_content=copy_text&utm_term=pdp-soc" 
-    target="_blank" 
-    rel="sponsored noopener noreferrer" 
-    className="text-[#7CCB98] underline hover:text-white"
-  >
-    Crea tu cuenta de Pipedrive aquí
-  </a>{" "}
-  y parte con una prueba extendida de 30 días.
-</p>
+          <p className="text-xs text-slate-400">
+            ¿Prefieres partir por tu cuenta?{" "}
+            <a href={AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer" className="text-[#7CCB98] underline hover:text-white">
+              Crea tu cuenta de Pipedrive aquí
+            </a>{" "}
+            y parte con una prueba extendida.
+          </p>
         </div>
       </main>
 
