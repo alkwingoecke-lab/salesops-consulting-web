@@ -1,59 +1,92 @@
-// SVGs nativos para no depender de librerías de terceros en logos de marcas
-const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-    <rect x="2" y="9" width="4" height="12"></rect>
-    <circle cx="4" cy="4" r="2"></circle>
-  </svg>
-);
+"use client";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-const InstagramIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-  </svg>
-);
+export function Nav({ onOpenModal }: { onOpenModal: () => void }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-const FacebookIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-  </svg>
-);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-export function Footer() {
-  const socials = [
-    { Icon: LinkedinIcon, url: "https://www.linkedin.com/company/salesops-consulting/", label: "LinkedIn" },
-    { Icon: InstagramIcon, url: "https://www.instagram.com/salesopsconsulting/", label: "Instagram" },
-    { Icon: FacebookIcon, url: "https://www.facebook.com/profile.php?id=61589963015210&locale=es_LA", label: "Facebook" },
+  const links = [
+    { label: "Servicios", href: "/#servicios", highlight: "none" },
+    { label: "Metodología", href: "/#metodo", highlight: "none" },
+    { label: "Comparativas", href: "/comparativas", highlight: "none" },
+    { label: "Blog", href: "/blog", highlight: "none" },
+    { label: "Pipedrive CRM", href: "/servicios/implementacion-pipedrive", highlight: "pipedrive" },
+    { label: "Calculadora ROI", href: "/calculadora-roi-pipedrive", highlight: "calc" },
   ];
 
+  const getDesktopLinkStyle = (type: string) => {
+    const baseStyle = "font-sans text-[14px] xl:text-[15px] font-medium transition-all px-2.5 xl:px-3.5 py-2 rounded-lg whitespace-nowrap";
+    if (type === "pipedrive") return `${baseStyle} text-[#0E6A4F] bg-[#EAF5EF] hover:bg-[#DCE8E1] font-semibold border border-[#0E6A4F]/25`;
+    if (type === "calc") return `${baseStyle} text-slate-700 hover:text-[#0E6A4F] font-semibold`;
+    return `${baseStyle} text-slate-700 hover:text-slate-950 hover:bg-slate-50`;
+  };
+
+  const getMobileLinkStyle = (type: string) => {
+    const baseStyle = "font-sans text-[16px] font-medium py-3.5 border-b border-slate-100 flex items-center";
+    if (type === "pipedrive") return `${baseStyle} text-[#0E6A4F] font-bold`;
+    if (type === "calc") return `${baseStyle} text-slate-900 font-semibold`;
+    return `${baseStyle} text-slate-700`;
+  };
+
   return (
-    <footer className="bg-white border-t border-slate-200 pt-16 pb-10">
-      <div className="max-w-[1120px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-center md:text-left mb-12">
-          <div className="flex flex-col items-center md:items-start">
-            <p className="font-sans text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Contacto Directo</p>
-            <a href="mailto:contacto@salesopsconsulting.cl" className="font-sans text-base font-semibold text-slate-900 hover:text-[#2d3f8f] transition-colors">
-              contacto@salesopsconsulting.cl
-            </a>
-          </div>
-          <div className="flex flex-col items-center md:items-end">
-            <p className="font-sans text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-3">Canales Corporativos</p>
-            <div className="flex gap-5">
-              {socials.map(({ Icon, url, label }) => (
-                <a key={url} href={url} target="_blank" rel="noopener noreferrer" aria-label={label} className="text-slate-600 hover:text-[#2d3f8f] hover:scale-105 transition-all">
-                  <Icon size={32} />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || open ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs" : "bg-transparent border-transparent"}`}>
+      <div className="max-w-[1350px] mx-auto px-4 md:px-8 py-2.5 flex justify-between items-center">
         
-        <div className="border-t border-slate-100 pt-6 text-center">
-          <p className="font-sans text-xs text-slate-400">© 2026 SalesOps Consulting SpA · Santiago, Chile</p>
+        {/* LOGO EN TAMAÑO EXTREMO */}
+        <Link 
+          href="/" 
+          className="flex items-center no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2D3F8F] rounded-md hover:opacity-90 transition-opacity shrink-0"
+        >
+          <Image
+            src="/logos/logo-salesops-dark.png"
+            alt="SalesOps Consulting"
+            width={400}
+            height={100}
+            className="h-14 sm:h-16 lg:h-20 w-auto object-contain"
+            priority
+          />
+        </Link>
+
+        {/* MENÚ ESCRITORIO */}
+        <div className="hidden lg:flex gap-1.5 xl:gap-2.5 items-center">
+          {links.map((link) => (
+            <Link key={link.href} href={link.href} className={getDesktopLinkStyle(link.highlight)}>
+              {link.label}
+            </Link>
+          ))}
+          <button onClick={onOpenModal} className="font-sans text-[14px] xl:text-[15px] font-bold text-white bg-[#2D3F8F] hover:bg-[#202e70] px-5 xl:px-6 py-2.5 xl:py-3 rounded-xl transition-colors ml-2 shadow-sm whitespace-nowrap cursor-pointer">
+            Agendar Diagnóstico
+          </button>
         </div>
+
+        {/* BOTÓN MÓVIL */}
+        <button className="lg:hidden p-2 text-slate-950" aria-expanded={open} onClick={() => setOpen(!open)}>
+          {open ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </div>
-    </footer>
+
+      {/* MENÚ DESPLEGABLE MÓVIL */}
+      {open && (
+        <div className="lg:hidden bg-white border-b border-slate-200 flex flex-col px-6 pb-6 shadow-inner">
+          {links.map((link) => (
+            <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className={getMobileLinkStyle(link.highlight)}>
+              {link.label}
+            </Link>
+          ))}
+          <button onClick={() => { setOpen(false); onOpenModal(); }} className="mt-5 font-sans text-[16px] font-bold text-white bg-[#2D3F8F] py-3.5 rounded-xl w-full text-center shadow-sm">
+            Agendar Diagnóstico
+          </button>
+        </div>
+      )}
+    </nav>
   );
 }
