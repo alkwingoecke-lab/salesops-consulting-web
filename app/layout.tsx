@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: "Estructuramos equipos de ventas y operaciones comerciales para escalar tus resultados sin humo.",
     images: [
       {
-        url: "/og-image.jpg", // Asegúrate de subir esta imagen a tu carpeta public/
+        url: "/og-image.png", // Asegúrate de subir esta imagen a tu carpeta public/
         width: 1200,
         height: 630,
         alt: "SalesOps Consulting - Portada",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SalesOps Consulting",
     description: "Estructuramos equipos de ventas y operaciones comerciales.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/",
