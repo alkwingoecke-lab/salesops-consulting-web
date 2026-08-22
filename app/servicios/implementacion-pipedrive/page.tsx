@@ -27,6 +27,12 @@ import Link from "next/link";
 export const metadata = {
   title: "Implementación Pipedrive en Chile | Consultoría CRM | SalesOps",
   description: "Metodología SalesOps de 5 etapas para escalar ventas B2B, B2C y B2G. Consultoría, automatización de embudos y adopción comercial en Pipedrive.",
+  openGraph: {
+    title: "Implementación de Pipedrive en Chile | SalesOps",
+    description: "Metodología SalesOps de 5 etapas para escalar ventas B2B, B2C y B2G en Pipedrive, con foco en la adopción real del equipo.",
+    url: "/servicios/implementacion-pipedrive",
+    type: "website",
+  },
   alternates: {
     canonical: "/servicios/implementacion-pipedrive",
   },
@@ -35,10 +41,51 @@ export const metadata = {
 const FORM_URL_PIPEDRIVE = "https://webforms.pipedrive.com/f/cs71NsC9gaigrHlOs1TdIo7mCaKBAqhSvSeTdi2sAQgmmx4jIJYlZGh2Yc9VazEBqz";
 const PARTNER_AFFILIATE_URL = "https://app.pipedrive.com/affiliate/pdp-soc?utm_source=Salesops+Consulting+SpA&utm_medium=partners_program&utm_content=copy_text&utm_term=pdp-soc";
 
+// Fuente unica de la FAQ: se usa para renderizar y para el schema (no se desincronizan)
+const faqs = [
+  { q: "¿Cuánto demora un proyecto de implementación estándar?", a: "Una implementación típica para equipos de 5 a 20 usuarios toma entre 14 y 21 días hábiles bajo nuestra Metodología SalesOps. Operamos con plazos cerrados y entregables claros en cada etapa." },
+  { q: "¿Cuál es el modelo de inversión del servicio?", a: "Trabajamos con un valor base referencial por proyecto de $600.000 CLP. La propuesta definitiva se cotiza con precio fijo tras realizar el diagnóstico técnico, dependiendo de la complejidad técnica de tus embudos e integraciones, no de la cantidad de vendedores." },
+  { q: "¿Qué pasa si ya usamos Pipedrive pero no nos da resultados?", a: "Es un escenario frecuente. Ejecutamos un servicio de Optimización y Reestructuración en 7 a 10 días, donde limpiamos la arquitectura de pipelines, reparamos automatizaciones mal configuradas y re-entrenamos al equipo." },
+  { q: "¿Es posible integrar Pipedrive con WhatsApp o nuestro ERP?", a: "Absolutamente. Pipedrive cuenta con un ecosistema robusto que conectamos con canales de mensajería (WhatsApp), formularios web y herramientas de automatización para vincularlo con tus sistemas de facturación." },
+];
+
+// Datos estructurados: Servicio + FAQPage (desde faqs) + Breadcrumb
+const pipedriveJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Implementación de Pipedrive CRM en Chile",
+      "serviceType": "Implementación y consultoría de CRM",
+      "provider": { "@type": "Organization", "name": "SalesOps Consulting", "url": "https://www.salesopsconsulting.cl" },
+      "areaServed": { "@type": "Country", "name": "Chile" },
+      "description": "Implementación de Pipedrive para ventas consultivas B2B, operaciones B2C y licitaciones B2G, con la metodología SalesOps de 5 etapas y foco en la adopción del equipo.",
+      "url": "https://www.salesopsconsulting.cl/servicios/implementacion-pipedrive",
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.salesopsconsulting.cl/" },
+        { "@type": "ListItem", position: 2, name: "Implementación de Pipedrive en Chile", item: "https://www.salesopsconsulting.cl/servicios/implementacion-pipedrive" },
+      ],
+    },
+  ],
+};
+
 export default function PipedrivePage() {
   return (
     <div className="bg-[#F3F7F4] text-[#0C1D17] min-h-screen antialiased selection:bg-[#00A651] selection:text-white">
       <HeaderManager />
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pipedriveJsonLd) }} />
 
       <main className="pt-28 pb-20">
         {/* =========================================================
@@ -327,12 +374,7 @@ export default function PipedrivePage() {
           </div>
 
           <div className="space-y-3 mb-12">
-            {[
-              { q: "¿Cuánto demora un proyecto de implementación estándar?", a: "Una implementación típica para equipos de 5 a 20 usuarios toma entre 14 y 21 días hábiles bajo nuestra Metodología SalesOps. Operamos con plazos cerrados y entregables claros en cada etapa." },
-              { q: "¿Cuál es el modelo de inversión del servicio?", a: "Trabajamos con un valor base referencial por proyecto de $600.000 CLP. La propuesta definitiva se cotiza con precio fijo tras realizar el diagnóstico técnico, dependiendo de la complejidad técnica de tus embudos e integraciones, no de la cantidad de vendedores." },
-              { q: "¿Qué pasa si ya usamos Pipedrive pero no nos da resultados?", a: "Es un escenario frecuente. Ejecutamos un servicio de Optimización y Reestructuración en 7 a 10 días, donde limpiamos la arquitectura de pipelines, reparamos automatizaciones mal configuradas y re-entrenamos al equipo." },
-              { q: "¿Es posible integrar Pipedrive con WhatsApp o nuestro ERP?", a: "Absolutamente. Pipedrive cuenta con un ecosistema robusto que conectamos con canales de mensajería (WhatsApp), formularios web y herramientas de automatización para vincularlo con tus sistemas de facturación." },
-            ].map((faq, idx) => (
+            {faqs.map((faq, idx) => (
               <details key={idx} className="bg-white border border-[#D8E2DC] rounded-2xl p-6 group shadow-xs">
                 <summary className="font-bold text-base sm:text-lg text-[#0C1D17] cursor-pointer list-none flex justify-between items-center">
                   <span>{faq.q}</span>
